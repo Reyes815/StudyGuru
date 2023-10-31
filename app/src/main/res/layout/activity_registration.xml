@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2D4059"
+    tools:context=".Registration">
+
+    <EditText
+        android:id="@+id/confirm_password_reg"
+        android:layout_width="258dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/button_drawable"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_margin_right"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/button_margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin" />
+
+    <EditText
+        android:id="@+id/username_reg"
+        android:layout_width="258dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_drawable"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_margin_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin" />
+
+    <LinearLayout
+        android:id="@+id/button_margin_right"
+        android:layout_width="69dp"
+        android:layout_height="355dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin"
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_margin_left"
+        android:layout_width="69dp"
+        android:layout_height="355dp"
+        android:layout_marginStart="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/email_address_reg"
+        android:layout_width="258dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/button_drawable"
+        android:ems="10"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_margin_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin" />
+
+    <EditText
+        android:id="@+id/password_reg"
+        android:layout_width="258dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="3dp"
+        android:background="@drawable/button_drawable"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_margin_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin" />
+
+    <Button
+        android:id="@+id/registration_button"
+        android:layout_width="258dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="284dp"
+        android:background="@drawable/button_background_color"
+        android:text="REGISTER"
+        android:textColor="#FDFDFD"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_margin_right"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/button_margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/divider_margin" />
+
+    <ImageView
+        android:id="@+id/logo_register"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintEnd_toStartOf="@+id/logo_margin_right"
+        app:layout_constraintStart_toEndOf="@+id/logo_margin_left"
+        app:layout_constraintTop_toBottomOf="@+id/register_top_margin"
+        app:srcCompat="@drawable/studyguru__1__removebg_preview" />
+
+    <LinearLayout
+        android:id="@+id/logo_margin_left"
+        android:layout_width="69dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_top_margin" />
+
+    <LinearLayout
+        android:id="@+id/register_top_margin"
+        android:layout_width="409dp"
+        android:layout_height="66dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/logo_margin_right"
+        android:layout_width="69dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_top_margin"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/divider_margin"
+        android:layout_width="410dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="4dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_register"></LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
