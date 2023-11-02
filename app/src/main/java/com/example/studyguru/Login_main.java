@@ -46,32 +46,31 @@ public class Login_main extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
+                                    boolean incorrect = false;
                                     for (QueryDocumentSnapshot doc : task.getResult()) {
-                                        int count = 0;
-                                        String a = doc.getString("Email");
-                                        String b = doc.getString("Password");
                                         String a1 = email.getText().toString().trim();
                                         String b1 = pwd.getText().toString().trim();
+                                        String a = doc.getString("Email");
+                                        String b = doc.getString("Password");
+                                        if(a1.equalsIgnoreCase("") || b1.equalsIgnoreCase("")){
+
+                                            return ;
+                                        }
                                         if (a != null && a.equalsIgnoreCase(a1) && b != null && b.equalsIgnoreCase(b1)) {
                                             Intent home = new Intent(Login_main.this, HomePage.class);
                                             // go to the home page after successful login
                                             startActivity(home);
                                             Toast.makeText(Login_main.this, "Logged In", Toast.LENGTH_SHORT).show();
-                                            count++;
-                                            break;
-                                        }else {
-                                            if(count == 10){
-                                                Toast.makeText(Login_main.this, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
-                                                email.setText("");
-                                                pwd.setText("");
-                                            }
 
+                                            break;
+                                        }else{
+                                            incorrect = true;
                                         }
                                     }
+                                    if(incorrect){
+                                        Toast.makeText(Login_main.this, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                Toast.makeText(Login_main.this, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
-                                email.setText("");
-                                pwd.setText("");
                             }
                         });
             }

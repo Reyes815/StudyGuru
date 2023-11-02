@@ -40,10 +40,12 @@ public class Registration extends AppCompatActivity {
         reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$";
+
                 if(username.getText().toString().equals("")) {
                     Toast.makeText(Registration.this, "Please type a username", Toast.LENGTH_SHORT).show();
                     //check username
-                }else if(email.getText().toString().equals("")) {
+                }else if(email.getText().toString().equals("") || !email.getText().toString().matches(emailPattern)) {
                     Toast.makeText(Registration.this, "Please type an email id", Toast.LENGTH_SHORT).show();
                     //check email
                 }else if(password.getText().toString().equals("")){
