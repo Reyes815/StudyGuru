@@ -24,58 +24,24 @@ public class Login_main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        View rootView = findViewById(android.R.id.content);
+        LoginUI loginUI = new LoginUI(rootView);
 
-        Button login = (Button) findViewById(R.id.login_button);
-        Button register = (Button) findViewById(R.id.goToRegister_button);
-        EditText email = (EditText) findViewById(R.id.email_address_login);
-        EditText pwd = (EditText) findViewById(R.id.password_login);
+        Button loginButton = loginUI.getLoginButton();
+        Button registerButton = loginUI.getRegisterButton();
+        EditText emailTextbox = loginUI.getEmailTextbox();
+        EditText passwordTextbox = loginUI.getPasswordTextbox();
+
+        LoginControl loginControl = new LoginControl();
 
 
-        login.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email.getText().toString().equals("")) {
-                    Toast.makeText(Login_main.this, "Please enter valid email", Toast.LENGTH_SHORT).show();
-                } else if (pwd.getText().toString().equals("")) {
-                    Toast.makeText(Login_main.this, "Please enter valid password", Toast.LENGTH_SHORT).show();
-                }
-                firestore.collection("client")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    boolean incorrect = false;
-                                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                                        String a1 = email.getText().toString().trim();
-                                        String b1 = pwd.getText().toString().trim();
-                                        String a = doc.getString("Email");
-                                        String b = doc.getString("Password");
-                                        if(a1.equalsIgnoreCase("") || b1.equalsIgnoreCase("")){
-
-                                            return ;
-                                        }
-                                        if (a != null && a.equalsIgnoreCase(a1) && b != null && b.equalsIgnoreCase(b1)) {
-                                            Intent home = new Intent(Login_main.this, HomePage.class);
-                                            // go to the home page after successful login
-                                            startActivity(home);
-                                            Toast.makeText(Login_main.this, "Logged In", Toast.LENGTH_SHORT).show();
-
-                                            break;
-                                        }else{
-                                                incorrect = true;
-                                        }
-                                    }
-                                    if(incorrect){
-                                        Toast.makeText(Login_main.this, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }
-                        });
+                loginControl.verifyLogin(emailTextbox, passwordTextbox, Login_main.this);
             }
         });
-        register.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Registration.class);
