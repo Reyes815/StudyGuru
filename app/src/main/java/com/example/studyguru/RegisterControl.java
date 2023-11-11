@@ -25,7 +25,7 @@ public class RegisterControl {
 
     public RegisterControl(){
         this.firestore = FirebaseFirestore.getInstance();
-        this.ref = firestore.collection("client").document();
+        this.ref = firestore.collection("user").document();
     }
 
     public void registerUser(EditText username, EditText email, EditText password, EditText con_pass, Context context) {
@@ -43,7 +43,7 @@ public class RegisterControl {
         } else if (!con_pass.getText().toString().equals(password.getText().toString())) {
             Toast.makeText(context, "Password mismatch", Toast.LENGTH_SHORT).show();
         } else {
-            firestore.collection("client")
+            firestore.collection("user")
                     .whereEqualTo("Email", email.getText().toString()) // Check if the email already exists
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -59,7 +59,7 @@ public class RegisterControl {
                                 reg_entry.put("Email", email.getText().toString());
                                 reg_entry.put("Password", password.getText().toString());
 
-                                firestore.collection("client")
+                                firestore.collection("user")
                                         .add(reg_entry)
                                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override
