@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,61 +25,69 @@ public class RegisterControl {
 
     public RegisterControl(){
         this.firestore = FirebaseFirestore.getInstance();
-        this.ref = firestore.collection("client").document();
+        this.ref = firestore.collection("user").document();
     }
 
-    public void registerUser(EditText username, EditText email, EditText password, EditText con_pass, Context context){
+    public void registerUser(EditText username, EditText email, EditText password, EditText con_pass, Context context) {
         String emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$";
+        String gmailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
-        if(username.getText().toString().equals("")) {
+        if (username.getText().toString().equals("")) {
             Toast.makeText(context, "Please type a username", Toast.LENGTH_SHORT).show();
-            //check username
-        }else if(email.getText().toString().equals("") || !email.getText().toString().matches(emailPattern)) {
-            Toast.makeText(context, "Please type an email id", Toast.LENGTH_SHORT).show();
-            //check email
-        }else if(password.getText().toString().equals("")){
+        } else if (email.getText().toString().equals("") || !email.getText().toString().matches(emailPattern)) {
+            Toast.makeText(context, "Please type a valid email id", Toast.LENGTH_SHORT).show();
+        } else if (!email.getText().toString().matches(gmailPattern)) {
+            Toast.makeText(context, "Only Gmail addresses are allowed", Toast.LENGTH_SHORT).show();
+        } else if (password.getText().toString().equals("")) {
             Toast.makeText(context, "Please type a password", Toast.LENGTH_SHORT).show();
-            //check pass
-        }else if(!con_pass.getText().toString().equals(password.getText().toString())){
+        } else if (!con_pass.getText().toString().equals(password.getText().toString())) {
             Toast.makeText(context, "Password mismatch", Toast.LENGTH_SHORT).show();
-            //re-check pass
-        }else {
-            ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.exists())
-                    {
-                        Toast.makeText(context, "Sorry,this user exists", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Map<String, Object> reg_entry = new HashMap<>();
-                        reg_entry.put("Name", username.getText().toString());
-                        reg_entry.put("Email", email.getText().toString());
-                        reg_entry.put("Password", password.getText().toString());
+        } else {
+            firestore.collection("user")
+                    .whereEqualTo("Email", email.getText().toString()) // Check if the email already exists
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                // Email already exists
+                                Toast.makeText(context, "Sorry, this email is already registered", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Email does not exist, proceed with registration
+                                Map<String, Object> reg_entry = new HashMap<>();
+                                reg_entry.put("Name", username.getText().toString());
+                                reg_entry.put("Email", email.getText().toString());
+                                reg_entry.put("Password", password.getText().toString());
 
-                        //   String myId = ref.getId();
-                        firestore.collection("client")
-                                .add(reg_entry)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Toast.makeText(context, "Successfully added", Toast.LENGTH_SHORT).show();
-                                        username.setText("");
-                                        email.setText("");
-                                        password.setText("");
-                                        con_pass.setText("");
-                                        Intent intent = new Intent(context, Login_main.class);
-                                        context.startActivity(intent);
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("Error", e.getMessage());
-                                    }
-                                });
-                    }
-                }
-            });
+                                firestore.collection("user")
+                                        .add(reg_entry)
+                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Toast.makeText(context, "Successfully added", Toast.LENGTH_SHORT).show();
+                                                username.setText("");
+                                                email.setText("");
+                                                password.setText("");
+                                                con_pass.setText("");
+                                                Intent intent = new Intent(context, Login_main.class);
+                                                context.startActivity(intent);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("Error", e.getMessage());
+                                            }
+                                        });
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Error", e.getMessage());
+                        }
+                    });
         }
     }
 

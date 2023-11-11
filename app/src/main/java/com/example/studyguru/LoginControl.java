@@ -28,7 +28,7 @@ public class LoginControl {
         } else if (password.getText().toString().equals("")) {
             Toast.makeText(context, "Please enter valid password", Toast.LENGTH_SHORT).show();
         }
-        firestore.collection("client")
+        firestore.collection("user")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
