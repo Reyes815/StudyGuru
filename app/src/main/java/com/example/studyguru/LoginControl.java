@@ -34,35 +34,31 @@ public class LoginControl {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            boolean incorrect = false;
                             for (QueryDocumentSnapshot doc : task.getResult()) {
-                                int count = 0;
-                                String a = doc.getString("Email");
-                                String b = doc.getString("Password");
                                 String a1 = email.getText().toString().trim();
                                 String b1 = password.getText().toString().trim();
+                                String a = doc.getString("Email");
+                                String b = doc.getString("Password");
+                                if(a1.equalsIgnoreCase("") || b1.equalsIgnoreCase("")){
+
+                                    return ;
+                                }
                                 if (a != null && a.equalsIgnoreCase(a1) && b != null && b.equalsIgnoreCase(b1)) {
-                                    LoginStatus = true;
                                     Intent home = new Intent(context, HomePage.class);
                                     // go to the home page after successful login
                                     context.startActivity(home);
                                     Toast.makeText(context, "Logged In", Toast.LENGTH_SHORT).show();
-                                    count++;
-                                    return;
-                                }else {
-                                    if(count == 10){
-                                        Toast.makeText(context, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
-                                        email.setText("");
-                                        password.setText("");
-                                        LoginStatus = false;
-                                    }
 
+                                    break;
+                                }else{
+                                    incorrect = true;
                                 }
                             }
+                            if(incorrect){
+                                Toast.makeText(context, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        Toast.makeText(context, "Incorrect Email or Password. Try again", Toast.LENGTH_SHORT).show();
-                        email.setText("");
-                        password.setText("");
-                        LoginStatus = false;
                     }
                 });
     }

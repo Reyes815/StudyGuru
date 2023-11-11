@@ -62,7 +62,6 @@ public class RegisterControl {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
                                         Toast.makeText(context, "Successfully added", Toast.LENGTH_SHORT).show();
-                                        RegisterStatus = true;
                                         username.setText("");
                                         email.setText("");
                                         password.setText("");
@@ -75,7 +74,6 @@ public class RegisterControl {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.d("Error", e.getMessage());
-                                        RegisterStatus = false;
                                     }
                                 });
                     }
