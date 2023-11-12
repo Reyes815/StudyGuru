@@ -22,6 +22,15 @@
             android:name=".Login_main"
             android:exported="false" />
         <activity
+            android:name=".AssessmentPage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".LoadingScreen"
             android:exported="true"
             android:theme="@style/Theme.StudyGuru">
