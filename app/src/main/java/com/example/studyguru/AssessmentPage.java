@@ -30,7 +30,6 @@ public class AssessmentPage extends AppCompatActivity {
         setContentView(R.layout.assessment_page);
         loadData();
         setUpRecyclerView();
-        System.out.println("IM");
     }
 
     private void setUpRecyclerView(){
@@ -52,19 +51,16 @@ public class AssessmentPage extends AppCompatActivity {
         questionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
-                System.out.println("Im in");
                 if (task.isSuccessful()) {
                     dataset.clear(); // Clear existing data
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Convert each document to your data model and add to the dataset
-                        System.out.println("Added");
                         Assessment data = document.toObject(Assessment.class);
                         dataset.add(data);
                     }
                     adapter.notifyDataSetChanged(); // Notify the adapter that the data set has changed
                 } else {
                     // Handle errors
-                    System.out.println("Error");
                     Log.e("AssessmentPage", "Error fetching data: " + task.getException());
                 }
             }
