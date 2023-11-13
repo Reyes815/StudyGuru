@@ -1,5 +1,7 @@
 package com.example.studyguru;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,7 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         TextView question;
         TextView answer_key;
         EditText answer;
+
         public AssessmentHolder(@NonNull View itemView) {
             super(itemView);
             question = itemView.findViewById(R.id.question);
@@ -59,5 +62,7 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         public EditText getAnswer() {
             return answer;
         }
+
+
     }
 }

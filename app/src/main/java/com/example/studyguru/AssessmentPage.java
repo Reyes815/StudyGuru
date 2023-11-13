@@ -23,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AssessmentPage extends AppCompatActivity {
+    int load = 0;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference questionRef = db.collection("questions");
     FloatingActionButton submit_button;
@@ -30,12 +31,14 @@ public class AssessmentPage extends AppCompatActivity {
     private List<Assessment> dataset = new ArrayList<>();
     private List<String> userAnswers = new ArrayList<>();
     private int scoreUser;
+    private RecyclerView rView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assessment_page);
         submit_button = findViewById(R.id.submit_button);
+        rView = findViewById(R.id.rView);
 
         scoreUser = 0;
 
@@ -46,10 +49,16 @@ public class AssessmentPage extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Check if the user's answers match the correct answers
-                        for (int i = 0; i < dataset.size(); i++) {
+                        for (int i = 0; i < rView.getChildCount(); i++) {
+                            View childview = rView.getChildAt(i);
+                            RecyclerView.ViewHolder viewHolder = rView.getChildViewHolder(childview);
+
+                            String userAnswer = String.valueOf(((Assessment_Adapter.AssessmentHolder)viewHolder).getAnswer().getText());
                             Assessment assessment = dataset.get(i);
+                            assessment.setAnswer(userAnswer);
+
                             String correctAnswer = assessment.getAnswer_key();
-                            String userAnswer = assessment.getAnswer();
+
                             Log.d("AssessmentPage", ""+ userAnswer);
 
                             if(userAnswer != null){
@@ -62,10 +71,11 @@ public class AssessmentPage extends AppCompatActivity {
                                     scoreUser++;
                                 } else {
                                     // User's answer is incorrect for this question
+                                    Log.d("AssessmentPage", correctAnswer + " sdsdfsdfsd");
                                     Log.d("AssessmentPage", "Question " + (i + 1) + ": Incorrect!");
                                 }
                             }else{
-                                Log.d("AssessmentPage", "User answers are not provided or not complete");
+                                Log.d("AssessmentPage", "User answers are not provided or not complete " + assessment);
                             }
                         }
 
@@ -76,8 +86,6 @@ public class AssessmentPage extends AppCompatActivity {
 
 
     private void setUpRecyclerView(){
-        RecyclerView rView = findViewById(R.id.rView);
-
         // Set a LinearLayoutManager to your RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rView.setLayoutManager(layoutManager);
@@ -89,13 +97,12 @@ public class AssessmentPage extends AppCompatActivity {
         rView.setAdapter(adapter);
     }
 
-
     private void loadData() {
         questionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             int count = 1;
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
+                if (task.isSuccessful() && load == 0) {
                     dataset.clear(); // Clear existing data
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Convert each document to your data model and add to the dataset
