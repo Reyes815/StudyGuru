@@ -12,13 +12,14 @@ public class Assessment_item extends AppCompatActivity {
     EditText answer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assessment_item);
 
         answer_key = findViewById(R.id.answer_key);
         question = findViewById(R.id.question);
         answer = findViewById(R.id.answer);
+
     }
 
 }

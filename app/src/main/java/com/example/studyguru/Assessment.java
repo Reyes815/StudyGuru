@@ -4,7 +4,7 @@ public class Assessment {
     private String question;
 
     private String answer_key;
-
+    private String answer;
     public Assessment(){
 
     }
@@ -13,9 +13,13 @@ public class Assessment {
         this.question = question;
         this.answer_key = answer_key;
     }
-
+    public String setAnswer(String answer){
+        return answer;
+    }
+    public String getAnswer(){
+        return answer;
+    }
     public String getQuestion() {
-
         return question;
     }
 

@@ -3,6 +3,7 @@ package com.example.studyguru;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         Assessment current = localDataset.get(position);
         holder.question.setText(current.getQuestion());
         holder.answer_key.setText(current.getAnswer_key());
+        holder.answer.setText(current.getAnswer());
     }
 
     @Override
@@ -36,12 +38,14 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
     }
 
     public static class AssessmentHolder extends RecyclerView.ViewHolder{
-        private final TextView question;
-        private final TextView answer_key;
+        TextView question;
+        TextView answer_key;
+        EditText answer;
         public AssessmentHolder(@NonNull View itemView) {
             super(itemView);
             question = itemView.findViewById(R.id.question);
             answer_key = itemView.findViewById(R.id.answer_key);
+            answer = itemView.findViewById(R.id.answer);
         }
 
         public TextView getQuestion() {
@@ -52,5 +56,8 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
             return answer_key;
         }
 
+        public EditText getAnswer() {
+            return answer;
+        }
     }
 }
