@@ -26,6 +26,7 @@ public class Registration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        System.out.println("Running registration");
 
         View rootView = findViewById(android.R.id.content);
         RegisterUI registerUI = new RegisterUI(rootView);

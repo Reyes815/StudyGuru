@@ -45,10 +45,15 @@ public class LoginControl {
                                     return ;
                                 }
                                 if (a != null && a.equalsIgnoreCase(a1) && b != null && b.equalsIgnoreCase(b1)) {
-                                    Intent home = new Intent(context, HomePage.class);
-                                    // go to the home page after successful login
-                                    context.startActivity(home);
-                                    Toast.makeText(context, "Logged In", Toast.LENGTH_SHORT).show();
+                                    // start the introduction after successful login
+                                    Intent introduction = new Intent(context, IntroductionActivity.class);
+                                    context.startActivity(introduction);
+                                    Toast.makeText(context, "The story begins!", Toast.LENGTH_SHORT).show();
+
+//                                    Intent home = new Intent(context, HomePage.class);
+//                                    // go to the home page after successful login
+//                                    context.startActivity(home);
+//                                    Toast.makeText(context, "Logged In", Toast.LENGTH_SHORT).show();
 
                                     break;
                                 }else{
