@@ -15,6 +15,7 @@ import java.util.List;
 
 public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.AssessmentHolder> {
     private List<Assessment> localDataset;
+    private static final int TEXT_CHANGE_LISTENER_KEY = R.id.text_change_listener_key;;
     public Assessment_Adapter(List<Assessment> dataSet){
         localDataset = dataSet;
     }
@@ -31,7 +32,41 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         Assessment current = localDataset.get(position);
         holder.question.setText(current.getQuestion());
         holder.answer_key.setText(current.getAnswer_key());
+        // Set a unique identifier for the EditText view, e.g., using the position
+        holder.answer.setTag(position);
+
+        // Remove previous TextWatcher to avoid issues
+        if (holder.answer.getTag(TEXT_CHANGE_LISTENER_KEY) != null) {
+            holder.answer.removeTextChangedListener((TextWatcher) holder.answer.getTag(TEXT_CHANGE_LISTENER_KEY));
+        }
+
+        // Set the existing answer value in the EditText
         holder.answer.setText(current.getAnswer());
+
+        // Create a new TextWatcher
+        TextWatcher textChangeListener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // No action needed before text changes
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Update the dataset with the new answer when the text changes
+                current.setAnswer(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // No action needed after text changes
+            }
+        };
+
+        // Add the new TextWatcher to the EditText
+        holder.answer.addTextChangedListener(textChangeListener);
+
+        // Save the TextWatcher in the view's tag for future reference
+        holder.answer.setTag(TEXT_CHANGE_LISTENER_KEY, textChangeListener);
     }
 
     @Override
@@ -64,5 +99,15 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         }
 
 
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull AssessmentHolder holder) {
+        // Remove the TextChangeListener to avoid issues
+        if (holder.answer.getTag(TEXT_CHANGE_LISTENER_KEY) != null) {
+            holder.answer.removeTextChangedListener((TextWatcher) holder.answer.getTag(TEXT_CHANGE_LISTENER_KEY));
+        }
+
+        super.onViewRecycled(holder);
     }
 }

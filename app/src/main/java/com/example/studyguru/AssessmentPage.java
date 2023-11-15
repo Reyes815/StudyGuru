@@ -1,11 +1,14 @@
 package com.example.studyguru;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +35,10 @@ public class AssessmentPage extends AppCompatActivity {
     private List<String> userAnswers = new ArrayList<>();
     private int scoreUser;
     private RecyclerView rView;
+    int child = 0;
+
+    int targetPosition = dataset.size() - 1; // Replace with the position you want to scroll to
+    int scrollDuration = 1000; // Replace with the desired duration in milliseconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +50,19 @@ public class AssessmentPage extends AppCompatActivity {
         scoreUser = 0;
 
         loadData();
+        Log.d("AssessmentPage", String.valueOf(dataset.size()));
         setUpRecyclerView();
 
             submit_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // Check if the user's answers match the correct answers
-                        for (int i = 0; i < rView.getChildCount(); i++) {
-                            View childview = rView.getChildAt(i);
-                            RecyclerView.ViewHolder viewHolder = rView.getChildViewHolder(childview);
+                    for (int i = 0; i < dataset.size(); i++) {
+                            String userAnswer = String.valueOf(dataset.get(i).getAnswer());
 
-                            String userAnswer = String.valueOf(((Assessment_Adapter.AssessmentHolder)viewHolder).getAnswer().getText());
-                            Assessment assessment = dataset.get(i);
-                            assessment.setAnswer(userAnswer);
+                            String correctAnswer = dataset.get(i).getAnswer_key();
 
-                            String correctAnswer = assessment.getAnswer_key();
-
-                            Log.d("AssessmentPage", ""+ userAnswer);
-
+                        Log.d("AssessmentPage", "UserAnswer: " + userAnswer + " correctAnswer: " + correctAnswer);
                             if(userAnswer != null){
                                 Pattern pattern = Pattern.compile(correctAnswer);
                                 Matcher matcher = pattern.matcher(userAnswer);
@@ -71,18 +73,19 @@ public class AssessmentPage extends AppCompatActivity {
                                     scoreUser++;
                                 } else {
                                     // User's answer is incorrect for this question
-                                    Log.d("AssessmentPage", correctAnswer + " sdsdfsdfsd");
+                                    //Log.d("AssessmentPage", correctAnswer + " sdsdfsdfsd");
                                     Log.d("AssessmentPage", "Question " + (i + 1) + ": Incorrect!");
                                 }
                             }else{
-                                Log.d("AssessmentPage", "User answers are not provided or not complete " + assessment);
+                                Log.d("AssessmentPage", "Error");
                             }
                         }
 
-                    Log.d("AssessmentPage", "" + scoreUser);
+                    Log.d("AssessmentPage", String.valueOf(scoreUser));
                 }
             });
     }
+
 
 
     private void setUpRecyclerView(){
@@ -106,14 +109,11 @@ public class AssessmentPage extends AppCompatActivity {
                     dataset.clear(); // Clear existing data
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Convert each document to your data model and add to the dataset
-                        if(count<=2) {
                             Assessment data = document.toObject(Assessment.class);
                             dataset.add(data);
-                            count++;
-                        }else{
-                            break;
-                        }
+                            //count++;
                     }
+                   // Log.e("AssessmentPage", "dataset count = " + count);
                     adapter.notifyDataSetChanged(); // Notify the adapter that the data set has changed
                 } else {
                     // Handle errors
