@@ -18,9 +18,14 @@ public class LoginControl {
     private boolean LoginStatus;
     private FirebaseFirestore firestore;
 
+    private User user;
+
     public LoginControl(){
         this.firestore = FirebaseFirestore.getInstance();
+        this.user = new User();
     }
+
+
 
     public void verifyLogin(EditText email, EditText password, Context context){
         if (email.getText().toString().equals("")) {
@@ -40,11 +45,13 @@ public class LoginControl {
                                 String b1 = password.getText().toString().trim();
                                 String a = doc.getString("Email");
                                 String b = doc.getString("Password");
+                                user.setEmail(a);
+                                user.setPassword(b);
                                 if(a1.equalsIgnoreCase("") || b1.equalsIgnoreCase("")){
 
                                     return ;
                                 }
-                                if (a != null && a.equalsIgnoreCase(a1) && b != null && b.equalsIgnoreCase(b1)) {
+                                if (user.getEmail() != null && user.getEmail().equalsIgnoreCase(a1) && user.getPassword() != null && user.getPassword().equalsIgnoreCase(b1)) {
                                     // start the introduction after successful login
                                     Intent introduction = new Intent(context, IntroductionActivity.class);
                                     context.startActivity(introduction);

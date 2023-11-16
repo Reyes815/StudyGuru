@@ -32,13 +32,9 @@ public class AssessmentPage extends AppCompatActivity {
     FloatingActionButton submit_button;
     private Assessment_Adapter adapter;
     private List<Assessment> dataset = new ArrayList<>();
-    private List<String> userAnswers = new ArrayList<>();
     private int scoreUser;
     private RecyclerView rView;
-    int child = 0;
 
-    int targetPosition = dataset.size() - 1; // Replace with the position you want to scroll to
-    int scrollDuration = 1000; // Replace with the desired duration in milliseconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

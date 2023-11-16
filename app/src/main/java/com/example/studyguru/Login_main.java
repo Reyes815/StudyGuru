@@ -17,6 +17,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login_main extends AppCompatActivity {
 
+    private Button loginButton;
+    private Button registerButton;
+
+    private EditText emailTextbox;
+
+    private EditText passwordTextbox;
 
 
     @Override
@@ -28,10 +34,11 @@ public class Login_main extends AppCompatActivity {
         View rootView = findViewById(android.R.id.content);
         LoginUI loginUI = new LoginUI(rootView);
 
-        Button loginButton = loginUI.getLoginButton();
-        Button registerButton = loginUI.getRegisterButton();
-        EditText emailTextbox = loginUI.getEmailTextbox();
-        EditText passwordTextbox = loginUI.getPasswordTextbox();
+        loginButton = loginUI.getLoginButton();
+        registerButton = loginUI.getRegisterButton();
+        emailTextbox = loginUI.getEmailTextbox();
+        passwordTextbox = loginUI.getPasswordTextbox();
+
 
         LoginControl loginControl = new LoginControl();
 
