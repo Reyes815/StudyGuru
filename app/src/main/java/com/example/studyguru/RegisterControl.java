@@ -23,9 +23,13 @@ public class RegisterControl {
     FirebaseFirestore firestore;
     DocumentReference ref;
 
+    User user;
+
+
     public RegisterControl(){
         this.firestore = FirebaseFirestore.getInstance();
         this.ref = firestore.collection("user").document();
+        this.user = new User();
     }
 
     public void registerUser(EditText username, EditText email, EditText password, EditText con_pass, Context context) {
@@ -54,10 +58,14 @@ public class RegisterControl {
                                 Toast.makeText(context, "Sorry, this email is already registered", Toast.LENGTH_SHORT).show();
                             } else {
                                 // Email does not exist, proceed with registration
+                                user.setUsername(username.getText().toString());
+                                user.setEmail(username.getText().toString());
+                                user.setPassword(password.getText().toString());
+
                                 Map<String, Object> reg_entry = new HashMap<>();
-                                reg_entry.put("Name", username.getText().toString());
-                                reg_entry.put("Email", email.getText().toString());
-                                reg_entry.put("Password", password.getText().toString());
+                                reg_entry.put("Name", user.getUsername());
+                                reg_entry.put("Email", user.getEmail());
+                                reg_entry.put("Password", user.getPassword());
 
                                 firestore.collection("user")
                                         .add(reg_entry)
