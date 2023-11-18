@@ -4,15 +4,22 @@
     android:id="@+id/assessment_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
+    android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@color/orange">
+
+    <TextView
+        android:id="@+id/answer_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="answer_key"
+        android:textColor="@color/orange" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:padding="16dp"
         >
 
         <EditText
@@ -20,32 +27,20 @@
             style="@android:style/Widget.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/question"
-            android:layout_marginStart="16dp"
+            android:layout_below="@id/question"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/white"
-            android:hint="eg. aabbaa"
-            android:textColorHint="@color/gray">
-
-        </EditText>
-
+            android:background="@android:color/transparent"
+            android:hint="Input string eg.aabbaa"
+            android:textColor="@android:color/white"
+            android:textColorHint="#808080" />
         <TextView
             android:id="@+id/question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="Question"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"></TextView>
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/answer_key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/answer"
-            android:textColor="@color/orange"
-            android:text="answer_key"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
