@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.AssessmentHolder> {
+    private static final int Max_item = 10;
     private List<Assessment> localDataset;
     private static final int TEXT_CHANGE_LISTENER_KEY = R.id.text_change_listener_key;;
     public Assessment_Adapter(List<Assessment> dataSet){
@@ -71,7 +72,7 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
 
     @Override
     public int getItemCount() {
-        return localDataset.size();
+        return Math.min(localDataset.size(),Max_item);
     }
 
     public static class AssessmentHolder extends RecyclerView.ViewHolder{

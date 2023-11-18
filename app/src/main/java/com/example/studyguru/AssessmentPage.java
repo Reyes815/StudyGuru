@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
 public class AssessmentPage extends AppCompatActivity {
     int load = 0;
@@ -98,7 +99,6 @@ public class AssessmentPage extends AppCompatActivity {
 
     private void loadData() {
         questionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            int count = 1;
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
                 if (task.isSuccessful() && load == 0) {
@@ -110,7 +110,7 @@ public class AssessmentPage extends AppCompatActivity {
                             dataset.add(data);
                             //count++;
                     }
-                   // Log.e("AssessmentPage", "dataset count = " + count);
+                    Collections.shuffle(dataset);
                     adapter.notifyDataSetChanged(); // Notify the adapter that the data set has changed
                 } else {
                     // Handle errors
