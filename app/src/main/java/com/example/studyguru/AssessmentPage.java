@@ -106,6 +106,7 @@ public class AssessmentPage extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         // Convert each document to your data model and add to the dataset
                             Assessment data = document.toObject(Assessment.class);
+                            data.setAnswer("");
                             dataset.add(data);
                             //count++;
                     }
