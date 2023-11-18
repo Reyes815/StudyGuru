@@ -19,7 +19,17 @@ public class Assessment_item extends AppCompatActivity {
         answer_key = findViewById(R.id.answer_key);
         question = findViewById(R.id.question);
         answer = findViewById(R.id.answer);
-
     }
 
+    public TextView getAnswer_key() {
+        return answer_key;
+    }
+
+    public TextView getQuestion() {
+        return question;
+    }
+
+    public EditText getAnswer() {
+        return answer;
+    }
 }
