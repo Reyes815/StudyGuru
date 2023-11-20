@@ -20,7 +20,7 @@ public class HomePage extends AppCompatActivity {
         btnTutorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AssessmentPage.class);
+                Intent intent = new Intent(getApplicationContext(), Tutorial.class);
                 startActivity(intent);
             }
         });
