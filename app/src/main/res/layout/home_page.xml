@@ -1,123 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/home_page_layout"
     android:background="#2D4059"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ScrollView
-        android:layout_width="match_parent"
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/home_page_navview"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_gravity="start"
+        android:background="#2D4059"
+        android:theme="@style/NavigationTheme"
+        app:headerLayout="@layout/nav_header_main"
+        app:itemBackground="@drawable/round"
+        app:itemTextColor="@color/black"
+        app:menu="@menu/menu_main">
 
-        <LinearLayout
+    </com.google.android.material.navigation.NavigationView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:layout_editor_absoluteX="2dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="360dp"
-                android:layout_height="171dp"
-                android:layout_gravity="center">
+            <!-- Your Toolbar -->
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="331dp"
-                    android:layout_height="125dp"
-                    android:fontFamily="@font/rocknroll_one"
-                    android:text="Welcome to Study Guru!"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="34sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.551"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.652" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="300dp"
-                android:layout_height="178dp"
-                android:layout_gravity="center">
-
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="188dp"
-                    android:layout_height="137dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/studyguru__1__removebg_preview" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="79dp">
+                android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/btnTutorial"
-                    android:layout_width="230dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/rounded_corner"
-                    android:fontFamily="@font/rocknroll_one"
-                    android:text="Tutorial"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="360dp"
+                        android:layout_height="135dp"
+                        android:layout_gravity="center">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="76dp">
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="331dp"
+                            android:layout_height="125dp"
+                            android:fontFamily="@font/rocknroll_one"
+                            android:text="Welcome to Study Guru!"
+                            android:textAlignment="center"
+                            android:textColor="#FFFFFF"
+                            android:textSize="34sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.551"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/btnLearnmore"
-                    android:layout_width="230dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/rounded_corner"
-                    android:fontFamily="@font/rocknroll_one"
-                    android:text="Learn More"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="300dp"
+                        android:layout_height="178dp"
+                        android:layout_gravity="center">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="99dp">
 
-                <Button
-                    android:id="@+id/btnPlayNow"
-                    android:layout_width="230dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/rounded_corner"
-                    android:fontFamily="@font/rocknroll_one"
-                    android:text="Play Now!"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="188dp"
+                            android:layout_height="137dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/studyguru__1__removebg_preview" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-    </ScrollView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="79dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                        <Button
+                            android:id="@+id/btnTutorial"
+                            android:layout_width="230dp"
+                            android:layout_height="55dp"
+                            android:background="@drawable/rounded_corner"
+                            android:fontFamily="@font/rocknroll_one"
+                            android:text="Tutorial"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="76dp">
+
+                        <Button
+                            android:id="@+id/btnLearnmore"
+                            android:layout_width="230dp"
+                            android:layout_height="55dp"
+                            android:background="@drawable/rounded_corner"
+                            android:fontFamily="@font/rocknroll_one"
+                            android:text="Learn More"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="99dp">
+
+                        <Button
+                            android:id="@+id/btnPlayNow"
+                            android:layout_width="230dp"
+                            android:layout_height="55dp"
+                            android:background="@drawable/rounded_corner"
+                            android:fontFamily="@font/rocknroll_one"
+                            android:text="Play Now!"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- Your other layout elements go here -->
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#E55555"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:title=" "/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

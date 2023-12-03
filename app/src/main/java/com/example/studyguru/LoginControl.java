@@ -2,6 +2,7 @@ package com.example.studyguru;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,6 +55,8 @@ public class LoginControl {
                                 if (user.getEmail() != null && user.getEmail().equalsIgnoreCase(a1) && user.getPassword() != null && user.getPassword().equalsIgnoreCase(b1)) {
                                     // start the introduction after successful login
                                     Intent introduction = new Intent(context, IntroductionActivity.class);
+                                    introduction.putExtra("Current_User", user);
+                                    Log.d("LoginControl", user.getEmail());
                                     context.startActivity(introduction);
                                     Toast.makeText(context, "The story begins!", Toast.LENGTH_SHORT).show();
 

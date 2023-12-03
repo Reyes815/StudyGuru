@@ -91,7 +91,7 @@ public class AssessmentPage extends AppCompatActivity {
         rView.setLayoutManager(layoutManager);
 
         // Assuming questionRef is your data source
-        Query query = questionRef.orderBy("priority", Query.Direction.DESCENDING);
+            Query query = questionRef.orderBy("priority", Query.Direction.DESCENDING);
 
         adapter = new Assessment_Adapter(dataset);
         rView.setAdapter(adapter);
