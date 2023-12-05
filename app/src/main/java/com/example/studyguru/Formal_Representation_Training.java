@@ -1,11 +1,16 @@
 package com.example.studyguru;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +32,11 @@ public class Formal_Representation_Training extends AppCompatActivity {
     public FloatingActionButton button;
 
     private String lastDocumentKey = null;
+    private ImageView formalDefMap;
+
+    // Zoom in functionality
+    private ScaleGestureDetector scaleGestureDetector;
+    private float scaleFactor = 1.0f;
 
     List<String> dialoguesList = new ArrayList<>();;
 
@@ -54,6 +64,17 @@ public class Formal_Representation_Training extends AppCompatActivity {
         Initial_txtfield = findViewById(R.id.Initial_txtfield);
         Final_txtfield = findViewById(R.id.Final_txtfield);
 
+        // Get references for the ImageViews
+        formalDefMap = findViewById(R.id.formalDefMap);
+
+        // Initialize zoom in functionality
+        scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
+        formalDefMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popUp(R.layout.formal_representation_map_popup);
+            }
+        });
 
         firestore.collection("Dialogue_for_Acceptance_Training")
                 .get()
@@ -89,5 +110,40 @@ public class Formal_Representation_Training extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void popUp(int layoutResource) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View customView = getLayoutInflater().inflate(layoutResource, null);
+        builder.setView(customView);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+        // Set the onTouchListener to handle pinch-to-zoom gestures
+        customView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                scaleGestureDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+
+            // Limit the scale factor to a certain range if needed
+            scaleFactor = Math.max(0.1f, Math.min(scaleFactor, 5.0f));
+
+            // Apply the scale factor to the image view
+            formalDefMap.setScaleX(scaleFactor);
+            formalDefMap.setScaleY(scaleFactor);
+
+            return true;
+        }
     }
 }
