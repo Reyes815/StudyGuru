@@ -22,6 +22,8 @@ import com.google.android.material.navigation.NavigationView;
 public class HomePage extends AppCompatActivity {
     Button btnTutorial;
 
+    Button btnTraining;
+
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -35,6 +37,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.home_page);
 
         btnTutorial = findViewById(R.id.btnTutorial);
+        btnTraining = findViewById(R.id.btnTraining);
         toolbar = findViewById(R.id.toolbar);
 
         Intent intent = getIntent();
@@ -82,7 +85,12 @@ public class HomePage extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
+        btnTraining.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
 
         btnTutorial.setOnClickListener(new View.OnClickListener() {

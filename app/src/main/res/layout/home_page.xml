@@ -109,12 +109,12 @@
                         android:layout_height="76dp">
 
                         <Button
-                            android:id="@+id/btnLearnmore"
+                            android:id="@+id/btnTraining"
                             android:layout_width="230dp"
                             android:layout_height="55dp"
                             android:background="@drawable/rounded_corner"
                             android:fontFamily="@font/rocknroll_one"
-                            android:text="Learn More"
+                            android:text="Training"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             app:layout_constraintBottom_toBottomOf="parent"
