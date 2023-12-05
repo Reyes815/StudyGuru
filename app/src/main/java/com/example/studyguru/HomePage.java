@@ -2,12 +2,15 @@ package com.example.studyguru;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,11 @@ public class HomePage extends AppCompatActivity {
 
     Button btnTraining;
 
+    Button btnPlaynow;
+
+    ImageView training_button;
+    ImageView adventure_button;
+
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -39,6 +47,7 @@ public class HomePage extends AppCompatActivity {
         btnTutorial = findViewById(R.id.btnTutorial);
         btnTraining = findViewById(R.id.btnTraining);
         toolbar = findViewById(R.id.toolbar);
+        btnPlaynow = findViewById(R.id.btnPlayNow);
 
         Intent intent = getIntent();
         User currUser = intent.getParcelableExtra("user");
@@ -85,10 +94,37 @@ public class HomePage extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
 
-        btnTraining.setOnClickListener(new View.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View customView = getLayoutInflater().inflate(R.layout.custom_dialogue_pop_up_play_now, null);
+        builder.setView(customView);
+
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        btnPlaynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.show();
+            }
+        });
 
+        training_button = customView.findViewById(R.id.training_button);
+        adventure_button = customView.findViewById(R.id.adventure_button);
+
+        training_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), training.class);
+                startActivity(intent);
+            }
+        });
+
+        adventure_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AdventureLevel1.class);
+                startActivity(intent);
             }
         });
 
