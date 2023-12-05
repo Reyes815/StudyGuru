@@ -50,4 +50,7 @@
     <string name="nav_close">Close</string>
     <string name="title_activity_acceptance_training">Acceptance_Training</string>
 
+    <string name="title_activity_level_menu">Level_Menu</string>
+    <string name="title_activity_training2">training2</string>
+
 </resources>

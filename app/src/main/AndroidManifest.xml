@@ -60,6 +60,75 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".Formal_Representation_Training"
+            android:exported="true" >
+
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+
+        </activity>
+
+        <activity
+            android:name=".training3"
+            android:exported="true" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".Transition_Training"
+            android:exported="true"
+            android:label="@string/title_activity_training2"
+            android:theme="@style/Theme.StudyGuru">
+
+            <!--        <intent-filter>-->
+            <!--            <action android:name="android.intent.action.MAIN" />-->
+
+            <!--            <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--        </intent-filter>-->
+
+        </activity>
+        <activity
+            android:name=".AdventureLevel1"
+            android:exported="false" />
+        <activity
+            android:name=".AdventureLevel2"
+            android:exported="false" />
+        <activity
+            android:name=".AdventureLevel3"
+            android:exported="false" />
+        <activity
+            android:name=".AdventureLevel4"
+            android:exported="false" />
+        <activity
+            android:name=".AdventureLevel5"
+            android:exported="false" />
+        <activity
+            android:name=".Level_Menu"
+            android:exported="true">
+
+            <!--             <intent-filter>-->
+            <!--             <action android:name="android.intent.action.MAIN" />-->
+
+
+            <!--             <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--             </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".training"
+            android:exported="false">
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
