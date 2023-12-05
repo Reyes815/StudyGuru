@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2D4059"
+    tools:context=".AdventureLevel2">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="414dp"
+        android:layout_height="38dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="44dp"
+        android:layout_height="688dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="48dp"
+        android:layout_height="693dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"></LinearLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView4"
+        android:layout_width="285dp"
+        android:layout_height="583dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/castle_wall"
+        app:strokeColor="#E55555"
+        app:strokeWidth="15dp" />
+
+    <ImageView
+        android:id="@+id/start_vine6"
+        android:layout_width="111dp"
+        android:layout_height="163dp"
+        android:layout_marginTop="204dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/vine" />
+
+    <TextView
+        android:id="@+id/path_B_txtView3"
+        android:layout_width="62dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/abril_fatface"
+        android:gravity="center"
+        android:text="B↓"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <ImageView
+        android:id="@+id/start_vine4"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="33dp"
+        android:rotation="-20"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/vine" />
+
+    <TextView
+        android:id="@+id/path_A_txtView3"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="104dp"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/abril_fatface"
+        android:gravity="center"
+        android:text="A ↑"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <ImageView
+        android:id="@+id/start_vine3"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="236dp"
+        android:rotation="-34"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/vine" />
+
+    <ImageView
+        android:id="@+id/flower_node_3"
+        android:layout_width="111dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/flower" />
+
+    <ImageView
+        android:id="@+id/start_vine2"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="148dp"
+        android:rotation="68"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/vine" />
+
+    <ImageView
+        android:id="@+id/start_vine"
+        android:layout_width="76dp"
+        android:layout_height="192dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="328dp"
+        android:layout_marginEnd="47dp"
+        android:rotation="21"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.767"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/vine" />
+
+    <TextView
+        android:id="@+id/path_B_txtView"
+        android:layout_width="62dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="204dp"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/abril_fatface"
+        android:gravity="center"
+        android:text="B↑"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <ImageView
+        android:id="@+id/flower_node_2"
+        android:layout_width="111dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="236dp"
+        android:layout_marginEnd="196dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/flower" />
+
+    <ImageView
+        android:id="@+id/flower_node_1"
+        android:layout_width="111dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/flower" />
+
+    <TextView
+        android:id="@+id/path_A_txtView"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="308dp"
+        android:background="@drawable/rounded_corner"
+        android:fontFamily="@font/abril_fatface"
+        android:gravity="center"
+        android:text="A ↑"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <ImageView
+        android:id="@+id/flower_node_goal"
+        android:layout_width="125dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="94dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:srcCompat="@drawable/flower_goal" />
+
+    <ImageView
+        android:id="@+id/knight"
+        android:layout_width="139dp"
+        android:layout_height="117dp"
+        android:layout_marginBottom="28dp"
+        android:foregroundGravity="center|fill"
+        android:scaleType="fitCenter"
+        android:src="@drawable/idle_knight"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.569"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2" />
+
+    <EditText
+        android:id="@+id/inputEditText"
+        android:digits="abAB"
+        android:layout_width="159dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FDFDFD"
+        android:ems="10"
+        android:maxLength="3"
+        android:fontFamily="casual"
+        android:inputType="text"
+        android:shadowColor="#000000"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/Question_txtView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:onClick="Move"
+        android:id="@+id/movebtn"
+        android:layout_width="78dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_background_color"
+        android:text="Go!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/Question_txtView" />
+
+    <TextView
+        android:id="@+id/Question_txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:fontFamily="casual"
+        android:text="Max Character Input: 3"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <ImageView
+        android:id="@+id/start_image"
+        android:layout_width="101dp"
+        android:layout_height="86dp"
+        android:layout_marginBottom="40dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+        app:srcCompat="@drawable/idle_knight" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
