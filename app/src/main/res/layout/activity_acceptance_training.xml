@@ -226,6 +226,18 @@
         app:srcCompat="@drawable/idle_knight" />
 
     <ImageView
+        android:id="@+id/treasure_chest"
+        android:layout_width="119dp"
+        android:layout_height="108dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:layout_constraintVertical_bias="0.345"
+        app:srcCompat="@drawable/treasure_chests_1" />
+
+    <ImageView
         android:id="@+id/imageView8"
         android:layout_width="378dp"
         android:layout_height="104dp"
@@ -288,7 +300,6 @@
         android:layout_height="184dp"
         android:background="@drawable/wizard_dialogue_textview"
         android:padding="10dp"
-        android:text="TextView"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -320,5 +331,21 @@
         app:layout_constraintVertical_bias="0.248"
         app:strokeColor="#3F51B5"
         app:strokeWidth="15dp" />
+
+    <TextView
+        android:id="@+id/string_textview"
+        android:layout_width="198dp"
+        android:layout_height="57dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.653" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +33,12 @@ public class Transition_Training extends AppCompatActivity {
 
     private char choice;
 
+    private int charIndex = 0;
+
+    private String fullText = "";
+
+    private Runnable runnable;
+
     ImageView keyA;
 
     private String lastDocumentKey = null;
@@ -43,17 +50,26 @@ public class Transition_Training extends AppCompatActivity {
 
     int dialogue_counter = 0;
 
+    ImageView wizard;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_training2);
+        setContentView(R.layout.activity_transition_training);
 
         this.firestore = FirebaseFirestore.getInstance();
 
         button = findViewById(R.id.next_button);
 
+        wizard = findViewById(R.id.wizard_imgview);
+        wizard.setBackgroundResource(R.drawable.idle_wizard2);
+        AnimationDrawable idleW = (AnimationDrawable) wizard.getBackground();
+        idleW.start();
+
         wizard_dialogue = findViewById(R.id.txtWizarddialogue);
+
+        handler = new Handler();
 
 
         firestore.collection("Dialogue_Training2")
@@ -68,7 +84,7 @@ public class Transition_Training extends AppCompatActivity {
                                 dialoguesList.add(b);
                                 lastDocumentKey = doc.getId();
                             }
-                            wizard_dialogue.setText(dialoguesList.get(0));
+                            displayTextWithAnimation(dialoguesList.get(0));
                         } else {
                             Log.d("training", "Failed: " + task.getException());
                         }
@@ -133,10 +149,11 @@ public class Transition_Training extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                charIndex = 0;
                 dialogue_counter++;
 
                 if(dialogue_counter != 5){
-                    wizard_dialogue.setText(dialoguesList.get(dialogue_counter));
+                    displayTextWithAnimation(dialoguesList.get(dialogue_counter));
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -144,10 +161,10 @@ public class Transition_Training extends AppCompatActivity {
                             // Your delayed code here
                             dialog.show();
                         }
-                    }, 3000);
+                    }, 5000);
                 }else {
 
-                    wizard_dialogue.setText(dialoguesList.get(7));
+                    displayTextWithAnimation(dialoguesList.get(7));
                 }
 
             }
@@ -162,6 +179,7 @@ public class Transition_Training extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 choice = 'A';
+                charIndex = 0;
 
                 if (dialogue_counter == 1) {
                     translate(character, stone_gate);
@@ -179,7 +197,7 @@ public class Transition_Training extends AppCompatActivity {
                         @Override
                         public void run() {
                             // Your delayed code here
-                            wizard_dialogue.setText(dialoguesList.get(5));
+                            displayTextWithAnimation(dialoguesList.get(5));
                         }
                     }, 1800);
 
@@ -190,7 +208,7 @@ public class Transition_Training extends AppCompatActivity {
                             // Your delayed code here
                             dialog.show();
                         }
-                    }, 3000);  // 1000 milliseconds (1 second) delay
+                    }, 6000);  // 1000 milliseconds (1 second) delay
                 }
 
                 if(dialogue_counter == 3){
@@ -209,7 +227,7 @@ public class Transition_Training extends AppCompatActivity {
                         @Override
                         public void run() {
                             // Your delayed code here
-                            wizard_dialogue.setText(dialoguesList.get(5));
+                            displayTextWithAnimation(dialoguesList.get(5));
                         }
                     }, 1800);
 
@@ -231,7 +249,7 @@ public class Transition_Training extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(dialogue_counter < 4){
-                                wizard_dialogue.setText(dialoguesList.get(6));
+                                displayTextWithAnimation(dialoguesList.get(6));
                             } else if (dialogue_counter == 4) {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -249,7 +267,7 @@ public class Transition_Training extends AppCompatActivity {
                         public void run() {
                             button.performClick();
                         }
-                    }, 5500 );
+                    }, 7000 );
                 }
 
             }
@@ -259,6 +277,7 @@ public class Transition_Training extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 choice = 'B';
+                charIndex = 0;
                 if(dialogue_counter == 1 || dialogue_counter == 3){
                     backgroundAnimator.start();
                     dialog.dismiss();
@@ -267,7 +286,7 @@ public class Transition_Training extends AppCompatActivity {
                         @Override
                         public void run() {
                             if(dialogue_counter < 4){
-                                wizard_dialogue.setText(dialoguesList.get(6));
+                                displayTextWithAnimation(dialoguesList.get(6));
                             }
                         }
                     }, 1000 );
@@ -277,7 +296,7 @@ public class Transition_Training extends AppCompatActivity {
                         public void run() {
                             button.performClick();
                         }
-                    }, 5500 );
+                    }, 7000 );
 
                 }
 
@@ -298,7 +317,7 @@ public class Transition_Training extends AppCompatActivity {
                         @Override
                         public void run() {
                             // Your delayed code here
-                            wizard_dialogue.setText(dialoguesList.get(6));
+                            displayTextWithAnimation(dialoguesList.get(5));
                         }
                     }, 1800);
 
@@ -308,7 +327,7 @@ public class Transition_Training extends AppCompatActivity {
                             // Your delayed code here
                             dialog.show();
                         }
-                    }, 3000);  // 1000 milliseconds (1 second) delay
+                    }, 6000);  // 1000 milliseconds (1 second) delay
                 }
             }
         });
@@ -322,5 +341,26 @@ public class Transition_Training extends AppCompatActivity {
                 .y(target.getY())
                 .setDuration(1000)
                 .start();
+    }
+
+
+    public void displayTextWithAnimation(final String text) {
+        if (text != null) {
+            fullText = text;
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (charIndex < fullText.length()) {
+                        String partialText = fullText.substring(0, charIndex + 1);
+                        wizard_dialogue.setText(partialText);
+                        charIndex++;
+                        if (charIndex < fullText.length()) {
+                            handler.postDelayed(this, 30); // Adjust the delay time between characters
+                        }
+                    }
+                }
+            };
+            handler.postDelayed(runnable, 50); // Initial delay before starting animation
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.example.studyguru;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Acceptance_Training extends AppCompatActivity {
 
@@ -30,6 +32,8 @@ public class Acceptance_Training extends AppCompatActivity {
     private Handler handler;
 
     private char choice;
+
+    private int move_ctr;
 
     private int charIndex = 0;
 
@@ -42,13 +46,37 @@ public class Acceptance_Training extends AppCompatActivity {
 
     List<String> dialoguesList = new ArrayList<>();;
 
+    List<String> correct_answersList = new ArrayList<>();
+    List<String> wrong_answersList = new ArrayList<>();
+
     TextView wizard_dialogue;
+
+    TextView string_textview;
 
     int dialogue_counter = 0;
 
     int state;
 
     private String fullText = "";
+
+    private View character;
+
+    private View stone_gate_forB;
+
+    private  String answer;
+
+    private String answer_copy;
+
+    private int currentPosition = 0;
+
+    private int move_limit;
+
+    int random_correct;
+
+    int random_wrong;
+
+    String wrong_choice;
+
 
 
     @Override
@@ -62,8 +90,12 @@ public class Acceptance_Training extends AppCompatActivity {
 
         wizard_dialogue = findViewById(R.id.txtWizarddialogue);
 
+        string_textview = findViewById(R.id.string_textview);
 
         state = 0;
+
+        move_ctr = 0;
+
 
         handler = new Handler();
 
@@ -77,11 +109,53 @@ public class Acceptance_Training extends AppCompatActivity {
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 String b = doc.getString("Dialogue");
+                                wrong_choice = doc.getString("wrong_choice");
                                 dialoguesList.add(b);
                                 lastDocumentKey = doc.getId();
-                                dialogue_counter++;
                             }
-                            displayTextWithAnimation(dialoguesList.get(0));
+                            displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                        } else {
+                            Log.d("training", "Failed: " + task.getException());
+                        }
+                    }
+                });
+
+        firestore.collection("Strings_for_Acceptance_Training")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+
+                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                String b = doc.getString("correct_answer");
+                                String a = doc.getString("wrong_answer");
+                                // Check if 'a' is not null before adding it to the list
+                                if (a != null) {
+                                    wrong_answersList.add(a);
+                                    lastDocumentKey = doc.getId();
+                                }
+
+                                if (b != null) {
+                                    correct_answersList.add(b);
+                                }
+                            }
+
+                            Random random = new Random();
+
+                            // Make sure the wrong_answersList is not empty before getting a random element
+                            if (!wrong_answersList.isEmpty()) {
+                                random_wrong = random.nextInt(wrong_answersList.size());
+                                answer = wrong_answersList.get(random_wrong);
+                                answer_copy = answer;
+                                move_limit = answer.length();
+                            } else {
+                                // Handle the case where wrong_answersList is empty
+                                // For example, set a default value for 'answer' or take appropriate action
+                                answer = "Default Answer";
+                                answer_copy = answer;
+                                move_limit = answer.length();
+                            }
                         } else {
                             Log.d("training", "Failed: " + task.getException());
                         }
@@ -106,7 +180,7 @@ public class Acceptance_Training extends AppCompatActivity {
         ImageView stone_gate_forA2 = findViewById(R.id.stone_gate_forA2);
 
         //Stone Gate B
-        ImageView stone_gate_forB = findViewById(R.id.stone_gate_forB);
+        stone_gate_forB = findViewById(R.id.stone_gate_forB);
         ImageView stone_gate_forB2 = findViewById(R.id.stone_gate_forB2);
 
         //Letter A
@@ -118,15 +192,14 @@ public class Acceptance_Training extends AppCompatActivity {
         TextView B_path2 = findViewById(R.id.path2_B_txtView2);
 
         //Knight
-        ImageView character = findViewById(R.id.knight1);
+        character = findViewById(R.id.knight1);
         ImageView character2 = findViewById(R.id.knight2);
 
+        //Chest
+        ImageView chest = findViewById(R.id.treasure_chest);
 
-        // Set the initial position of the duplicate background
-        background1.setY(0); // Start the first background at the top
-        background2.setY(-background1.getHeight()); // Start the second background above the first one
-        path_forA2.setY(-background1.getHeight());
-        character2.setY(-background1.getHeight());
+        chest.setVisibility(View.GONE);
+
 
         float distanceToMove = 1218;
 
@@ -135,11 +208,13 @@ public class Acceptance_Training extends AppCompatActivity {
         backgroundAnimator.setDuration(5000); // Adjust duration as needed
 
 
-
         backgroundAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
+
+                float translationY = value;
+
                 background1.setTranslationY(value);
                 background2.setTranslationY(value - background1.getHeight());
 
@@ -167,8 +242,8 @@ public class Acceptance_Training extends AppCompatActivity {
                 B_path.setTranslationY(value);
                 B_path2.setTranslationY(value - background1.getHeight());
 
-                //Knight
-                character2.setTranslationY(value - background1.getHeight());
+                //Chest
+                chest.setTranslationY(value - background1.getHeight());
             }
         });
 
@@ -176,518 +251,299 @@ public class Acceptance_Training extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 charIndex = 0;
-                displayTextWithAnimation(dialoguesList.get(dialogue_counter));
                 dialogue_counter++;
-            }
-        });
+                displayTextWithAnimation(dialoguesList.get(dialogue_counter));
 
-        //wizard_dialogue.setText(state);
-
-        A_path.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                translate(character, stone_gate_forA);
-
-                switch (state){
-                    case 0:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
-                    case 1:
-                        state = 2;
-                        wizard_dialogue.setText("State 2");
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                path_forA2.setVisibility(View.GONE);
-                                path_forB2.setVisibility(View.GONE);
-                                stone_gate_forA2.setVisibility(View.GONE);
-                                stone_gate_forB2.setVisibility(View.GONE);
-                                A_path2.setVisibility(View.GONE);
-                                B_path2.setVisibility(View.GONE);
-                            }
-                        }, 1000);
-
-                        break;
-                    case 2:
-                        state = 2;
-                        wizard_dialogue.setText("State 2");
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                path_forA2.setVisibility(View.GONE);
-                                path_forB2.setVisibility(View.GONE);
-                                stone_gate_forA2.setVisibility(View.GONE);
-                                stone_gate_forB2.setVisibility(View.GONE);
-                                A_path2.setVisibility(View.GONE);
-                                B_path2.setVisibility(View.GONE);
-                            }
-                        }, 1000);
-                        break;
-                    case 3:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
+                if(dialogue_counter == 1){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            string_textview.setText(answer_copy);
+                        }
+                    }, 9000);
                 }
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        backgroundAnimator.start();
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 2500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA2);
-                    }
-                }, 3000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 3500);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 4000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 4500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 5000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 5500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 6000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, character2);
-                    }
-                }, 6500);
+                if(dialogue_counter == 3){
+                    Random random = new Random();
+                    int correct_ans = random.nextInt(correct_answersList.size());
+                    answer = correct_answersList.get(correct_ans);
+                    answer_copy = answer;
+                    move_limit = answer.length();
+                    string_textview.setText(answer_copy);
+                    A_path2.setVisibility(View.VISIBLE);
+                    B_path2.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         A_path2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //translate(character, stone_gate_forA);
+                choice = 'a';
 
-                switch (state){
-                    case 0:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
-                    case 1:
-                        state = 2;
-                        wizard_dialogue.setText("State 2");
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                path_forA2.setVisibility(View.GONE);
-                                path_forB2.setVisibility(View.GONE);
-                                stone_gate_forA2.setVisibility(View.GONE);
-                                stone_gate_forB2.setVisibility(View.GONE);
-                                A_path2.setVisibility(View.GONE);
-                                B_path2.setVisibility(View.GONE);
+                if (Character.compare(choice, answer.charAt(move_ctr)) == 0 && move_ctr < move_limit) {
+
+                    move_ctr++;
+
+                    subtractOneLetter();
+
+                    switch (state) {
+                        case 0:
+                            state = 3;
+                            break;
+                        case 1:
+                            state = 2;
+                            break;
+                        case 2:
+                            state = 2;
+                            if(move_limit <= move_ctr){
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        path_forA2.setVisibility(View.GONE);
+                                        path_forB2.setVisibility(View.GONE);
+                                        stone_gate_forA2.setVisibility(View.GONE);
+                                        stone_gate_forB2.setVisibility(View.GONE);
+                                        A_path2.setVisibility(View.GONE);
+                                        B_path2.setVisibility(View.GONE);
+                                        chest.setVisibility(View.VISIBLE);
+
+                                        charIndex = 0;
+                                        dialogue_counter++;
+                                        displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                                    }
+                                },2000);
                             }
-                        }, 1000);
-
-                        break;
-                    case 2:
-                        state = 2;
-                        wizard_dialogue.setText("State 2");
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                path_forA2.setVisibility(View.GONE);
-                                path_forB2.setVisibility(View.GONE);
-                                stone_gate_forA2.setVisibility(View.GONE);
-                                stone_gate_forB2.setVisibility(View.GONE);
-                                A_path2.setVisibility(View.GONE);
-                                B_path2.setVisibility(View.GONE);
+                            break;
+                        case 3:
+                            state = 3;
+                            if(move_limit <= move_ctr){
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        A_path2.setVisibility(View.GONE);
+                                        B_path2.setVisibility(View.GONE);
+                                        charIndex = 0;
+                                        dialogue_counter++;
+                                        displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                                    }
+                                },2000);
                             }
-                        }, 1000);
+                            break;
+                    }
 
-                        break;
-                    case 3:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
+                    if (state == 1) {
+                        translate(character, stone_gate_forA);
+                    } else {
+                        translate(character, stone_gate_forA2);
+                    }
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            backgroundAnimator.start();
+                        }
+                    }, 2000);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            runnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    translate(character, stone_gate_forA);
+
+                                    handler.postDelayed(this, 700);
+                                }
+                            };
+
+                            handler.post(runnable);
+                        }
+                    }, 2500);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            handler.removeCallbacks(runnable);
+                            translate(character, character2);
+                        }
+                    }, 6500);
+
+                } else{
+                    if (state == 0) {
+                        translate(character, stone_gate_forA);
+                    } else {
+                        translate(character, stone_gate_forA2);
+                    }
+                    // Delayed action with a Handler
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Your delayed code here
+                            translate(character, character2);
+                        }
+                    }, 1500);  // 1000 milliseconds (1 second) delay
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Your delayed code here
+                            charIndex = 0;
+                            displayTextWithAnimation(wrong_choice);
+                        }
+                    }, 1800);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Your delayed code here
+                            charIndex = 0;
+                            displayTextWithAnimation("Continue");
+                        }
+                    }, 9000);
                 }
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        backgroundAnimator.start();
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 2500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 3000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 3500);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 4000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 4500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 5000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 5500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forA);
-                    }
-                }, 6000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, character2);
-                    }
-                }, 6500);
             }
         });
 
-
-        B_path.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                translate(character, stone_gate_forB);
-
-                switch (state){
-                    case 0:
-                        state = 1;
-                        wizard_dialogue.setText("State 1");
-                        break;
-                    case 1:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
-                    case 2:
-                        state = 2;
-                        wizard_dialogue.setText("State 2");
-
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                path_forA2.setVisibility(View.GONE);
-                                path_forB2.setVisibility(View.GONE);
-                                stone_gate_forA2.setVisibility(View.GONE);
-                                stone_gate_forB2.setVisibility(View.GONE);
-                                A_path2.setVisibility(View.GONE);
-                                B_path2.setVisibility(View.GONE);
-                            }
-                        }, 1000);
-
-                        break;
-                    case 3:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
-                }
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        backgroundAnimator.start();
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 2500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 3000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 3500);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 4000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 4500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 5000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 5500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 6000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, character2);
-                    }
-                }, 6500);
-            }
-        });
 
 
         B_path2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //translate(character, stone_gate_forB);
+                choice = 'b';
 
-                switch (state){
-                    case 0:
-                        state = 1;
-                        wizard_dialogue.setText("State 1");
-                        break;
-                    case 1:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
-                    case 2:
-                        state = 2;
-                        wizard_dialogue.setText("State 2");
+                if (Character.compare(choice, answer.charAt(move_ctr)) == 0 && move_ctr < move_limit) {
 
+                    move_ctr++;
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                path_forA2.setVisibility(View.GONE);
-                                path_forB2.setVisibility(View.GONE);
-                                stone_gate_forA2.setVisibility(View.GONE);
-                                stone_gate_forB2.setVisibility(View.GONE);
-                                A_path2.setVisibility(View.GONE);
-                                B_path2.setVisibility(View.GONE);
+                    subtractOneLetter();
+
+                    switch (state) {
+                        case 0:
+                            state = 1;
+                            break;
+                        case 1:
+                            state = 3;
+                            break;
+                        case 2:
+                            state = 2;
+                            if(move_limit <= move_ctr){
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        path_forA2.setVisibility(View.GONE);
+                                        path_forB2.setVisibility(View.GONE);
+                                        stone_gate_forA2.setVisibility(View.GONE);
+                                        stone_gate_forB2.setVisibility(View.GONE);
+                                        A_path2.setVisibility(View.GONE);
+                                        B_path2.setVisibility(View.GONE);
+                                        chest.setVisibility(View.VISIBLE);
+
+                                        charIndex = 0;
+                                        dialogue_counter++;
+                                        displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                                    }
+                                },2000);
                             }
-                        }, 1000);
+                            break;
+                        case 3:
+                            state = 3;
+                            if(move_limit <= move_ctr) {
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        A_path2.setVisibility(View.GONE);
+                                        B_path2.setVisibility(View.GONE);
+                                        charIndex = 0;
+                                        dialogue_counter++;
+                                        displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                                        state = 0;
+                                        move_ctr = 0;
+                                        move_limit = 0;
+                                    }
+                                }, 2000);
+                            }
+                            break;
+                    }
 
-                        break;
-                    case 3:
-                        state = 3;
-                        wizard_dialogue.setText("State 3");
-                        break;
+                    if (state == 0) {
+                        translate(character, stone_gate_forB);
+                    } else {
+                        translate(character, stone_gate_forB2);
+                    }
+
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            backgroundAnimator.start();
+                        }
+                    }, 2000);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            runnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    translate(character, stone_gate_forB);
+
+                                    handler.postDelayed(this, 700);
+                                }
+                            };
+
+                            handler.post(runnable);
+                        }
+                    }, 2500);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            handler.removeCallbacks(runnable);
+                            translate(character, character2);
+                        }
+                    }, 6500);
+
+                } else{
+                    if (state == 0) {
+                        translate(character, stone_gate_forB);
+                    } else {
+                        translate(character, stone_gate_forB2);
+                    }
+                    // Delayed action with a Handler
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Your delayed code here
+                            translate(character, character2);
+                        }
+                    }, 1500);  // 1000 milliseconds (1 second) delay
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Your delayed code here
+                            charIndex = 0;
+                            displayTextWithAnimation(wrong_choice);
+                        }
+                    }, 1800);
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Your delayed code here
+                            charIndex = 0;
+                            displayTextWithAnimation("Continue");
+                        }
+                    }, 9000);
                 }
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        backgroundAnimator.start();
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 1000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 2500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 3000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 3500);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 4000);
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 4500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 5000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 5500);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, stone_gate_forB);
-                    }
-                }, 6000);
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        translate(character, character2);
-                    }
-                }, 6500);
+                handler.removeCallbacksAndMessages(runnable);
             }
         });
+
 
     }
 
@@ -699,7 +555,31 @@ public class Acceptance_Training extends AppCompatActivity {
                 .y(target.getY())
                 .setDuration(1000)
                 .start();
+
+        Log.d("translate", String.valueOf(state));
+
     }
+
+    private void wrong_choice(View viewToMove, View target){
+        // Delayed action with a Handler
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Your delayed code here
+                translate(viewToMove, target);
+            }
+        }, 1500);  // 1000 milliseconds (1 second) delay
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Your delayed code here
+                displayTextWithAnimation("Wrong choice");
+            }
+        }, 1800);
+    }
+
+
 
     public void displayTextWithAnimation(final String text) {
         if (text != null) {
@@ -725,5 +605,20 @@ public class Acceptance_Training extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacks(runnable); // To prevent memory leaks, remove callbacks when the activity is destroyed
+    }
+
+
+    private void subtractOneLetter() {
+        if (currentPosition + 1 < answer_copy.length()) {
+            String updatedString = answer_copy.substring(1);
+            answer_copy = updatedString;
+            string_textview.setText(updatedString);
+        } else {
+// Notify the user that there are no more letters to subtract
+            if(state == 1 || state == 2)
+                string_textview.setText("Congratulations!");
+            else
+                string_textview.setText("You're Trapped!");
+        }
     }
 }
