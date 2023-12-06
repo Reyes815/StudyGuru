@@ -52,6 +52,38 @@ public class Level_Menu extends AppCompatActivity {
             }
         });
 
+        level_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent training = new Intent(getApplicationContext(), AdventureLevel2.class);
+                startActivity(training);
+            }
+        });
+
+        level_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent training = new Intent(getApplicationContext(), AdventureLevel3.class);
+                startActivity(training);
+            }
+        });
+
+        level_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent training = new Intent(getApplicationContext(), AdventureLevel4.class);
+                startActivity(training);
+            }
+        });
+
+        level_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent training = new Intent(getApplicationContext(), AdventureLevel5.class);
+                startActivity(training);
+            }
+        });
+
         adventure_check2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -72,13 +104,64 @@ public class Level_Menu extends AppCompatActivity {
             }
         });
 
-        level_2.setOnClickListener(new View.OnClickListener() {
+        adventure_check3.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                Intent adventure = new Intent(getApplicationContext(), AdventureLevel1.class);
-                startActivity(adventure);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // Assuming 'status' is the field in your document
+                        boolean unlocked = document.getBoolean("Unlocked");
+                        if (unlocked) {
+                            level_3.setEnabled(true);
+                        }
+                    } else {
+                        Log.d("Document does not exist", "No such document");
+                    }
+                } else {
+                    Log.d("Failed to get doc", "get failed with ", task.getException());
+                }
             }
         });
 
+        adventure_check4.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // Assuming 'status' is the field in your document
+                        boolean unlocked = document.getBoolean("Unlocked");
+                        if (unlocked) {
+                            level_4.setEnabled(true);
+                        }
+                    } else {
+                        Log.d("Document does not exist", "No such document");
+                    }
+                } else {
+                    Log.d("Failed to get doc", "get failed with ", task.getException());
+                }
+            }
+        });
+
+        adventure_check5.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // Assuming 'status' is the field in your document
+                        boolean unlocked = document.getBoolean("Unlocked");
+                        if (unlocked) {
+                            level_5.setEnabled(true);
+                        }
+                    } else {
+                        Log.d("Document does not exist", "No such document");
+                    }
+                } else {
+                    Log.d("Failed to get doc", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 }
