@@ -46,9 +46,7 @@ public class Login_main extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent introduction = new Intent(getApplicationContext(), IntroductionActivity.class);
-                startActivity(introduction);
-                //loginControl.verifyLogin(emailTextbox, passwordTextbox, Login_main.this);
+                loginControl.verifyLogin(emailTextbox, passwordTextbox, Login_main.this);
             }
 
         });

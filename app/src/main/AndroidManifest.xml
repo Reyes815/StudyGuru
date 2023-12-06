@@ -76,15 +76,7 @@
 
         <activity
             android:name=".Formal_Representation_Training"
-            android:exported="true" >
-
-<!--                    <intent-filter>-->
-<!--                        <action android:name="android.intent.action.MAIN" />-->
-
-<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                    </intent-filter>-->
-
-        </activity>
+            android:exported="true" />
 
         <activity
             android:name=".Languages"
