@@ -5,10 +5,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,12 +43,8 @@ public class Formal_Representation_Training extends AppCompatActivity {
 
     TextView wizard_dialogue;
 
-    EditText States_txtfield;
-    EditText Alphabet_txtfield;
-    EditText Initial_txtfield;
-    EditText Final_txtfield;
-
     int dialogue_counter = 0;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +56,6 @@ public class Formal_Representation_Training extends AppCompatActivity {
         wizard_dialogue = findViewById(R.id.txtWizarddialogue);
 
         button = findViewById(R.id.next_button);
-
-        States_txtfield = findViewById(R.id.States_txtfield);
-        Alphabet_txtfield = findViewById(R.id.Alphabet_txtfield);
-        Initial_txtfield = findViewById(R.id.Initial_txtfield);
-        Final_txtfield = findViewById(R.id.Final_txtfield);
 
         // Get references for the ImageViews
         formalDefNote = findViewById(R.id.formalDefNote);
@@ -101,21 +95,14 @@ public class Formal_Representation_Training extends AppCompatActivity {
                     }
                 });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(States_txtfield.getText().toString().isEmpty()){
-                    Toast.makeText(Formal_Representation_Training.this, "Please input something", Toast.LENGTH_SHORT).show();
-                } else if(Alphabet_txtfield.getText().toString().isEmpty()){
-                    Toast.makeText(Formal_Representation_Training.this, "Please input something", Toast.LENGTH_SHORT).show();
-                } else if(Initial_txtfield.getText().toString().isEmpty()){
-                    Toast.makeText(Formal_Representation_Training.this, "Please input something", Toast.LENGTH_SHORT).show();
-                } else if(Final_txtfield.getText().toString().isEmpty()){
-                    Toast.makeText(Formal_Representation_Training.this, "Please input something", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
+
+    // Initialize strings that will store the input from the note popup
+    private String states;
+    private String alphabet;
+    private String initialState;
+    private String finalState;
+    private boolean noteWasOpened = false;
 
     private void popUp(int layoutResource) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -124,6 +111,40 @@ public class Formal_Representation_Training extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        if (layoutResource == R.layout.formal_representation_note_popup) {
+            EditText tfStates = customView.findViewById(R.id.tfStates);
+            EditText tfAlphabet = customView.findViewById(R.id.tfAlphabet);
+            EditText tfInitial = customView.findViewById(R.id.tfInitial);
+            EditText tfFinal = customView.findViewById(R.id.tfFinal);
+            Button btnSubmit = customView.findViewById(R.id.btnSubmit);
+
+            if (noteWasOpened) {
+                tfStates.setText(states);
+                tfAlphabet.setText(alphabet);
+                tfInitial.setText(initialState);
+                tfFinal.setText(finalState);
+            }
+
+            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    states = tfStates.getText().toString();
+                    alphabet = tfAlphabet.getText().toString();
+                    initialState = tfInitial.getText().toString();
+                    finalState = tfFinal.getText().toString();
+
+                    noteWasOpened = true;
+                }
+            });
+
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // Database functionality here...
+                }
+            });
+        }
         dialog.show();
     }
+
 }
