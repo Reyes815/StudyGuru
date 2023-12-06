@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -252,7 +253,13 @@ public class Acceptance_Training extends AppCompatActivity {
             public void onClick(View view) {
                 charIndex = 0;
                 dialogue_counter++;
-                displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                try {
+                    displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                }catch (Exception e){
+                        Intent intent = new Intent(Acceptance_Training.this, AssessmentPage.class);
+                        intent.putExtra("type", "Assessment_for_Acceptance_Training");
+                        startActivity(intent);
+                }
 
                 if(dialogue_counter == 1){
                     new Handler().postDelayed(new Runnable() {
@@ -273,6 +280,7 @@ public class Acceptance_Training extends AppCompatActivity {
                     A_path2.setVisibility(View.VISIBLE);
                     B_path2.setVisibility(View.VISIBLE);
                 }
+
             }
         });
 
@@ -312,6 +320,7 @@ public class Acceptance_Training extends AppCompatActivity {
                                         charIndex = 0;
                                         dialogue_counter++;
                                         displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                                        Log.d("acceptance", String.valueOf(dialogue_counter));
                                     }
                                 },2000);
                             }
@@ -465,6 +474,8 @@ public class Acceptance_Training extends AppCompatActivity {
                                         state = 0;
                                         move_ctr = 0;
                                         move_limit = 0;
+
+                                        Log.d("acceptance", String.valueOf(dialogue_counter));
                                     }
                                 }, 2000);
                             }

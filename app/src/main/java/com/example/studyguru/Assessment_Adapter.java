@@ -18,6 +18,9 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
     private static final int Max_item = 10;
     private List<Assessment> localDataset;
     private static final int TEXT_CHANGE_LISTENER_KEY = R.id.text_change_listener_key;;
+
+    private int textColor = Color.parseColor("#F07B3F");
+
     public Assessment_Adapter(List<Assessment> dataSet){
         localDataset = dataSet;
     }
@@ -36,6 +39,9 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         holder.answer_key.setText(current.getAnswer_key());
         // Set a unique identifier for the EditText view, e.g., using the position
         holder.answer.setTag(position);
+
+        // Set text color dynamically
+        holder.answer_key.setTextColor(textColor);
 
         // Remove previous TextWatcher to avoid issues
         if (holder.answer.getTag(TEXT_CHANGE_LISTENER_KEY) != null) {
@@ -110,5 +116,10 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         }
 
         super.onViewRecycled(holder);
+    }
+
+    public void updateTextColor(int newColor) {
+        this.textColor = newColor;
+        notifyDataSetChanged(); // Notify the adapter that the data set has changed
     }
 }

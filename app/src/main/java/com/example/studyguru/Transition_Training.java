@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -151,6 +152,12 @@ public class Transition_Training extends AppCompatActivity {
             public void onClick(View view) {
                 charIndex = 0;
                 dialogue_counter++;
+
+                if(dialogue_counter == 6){
+                    Intent intent = new Intent(Transition_Training.this, AssessmentPage.class);
+                    intent.putExtra("type", "Assessment_for_Transition_Training");
+                    startActivity(intent);
+                }
 
                 if(dialogue_counter != 5){
                     displayTextWithAnimation(dialoguesList.get(dialogue_counter));

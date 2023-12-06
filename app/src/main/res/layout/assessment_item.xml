@@ -10,8 +10,8 @@
     app:cardBackgroundColor="@color/orange">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="136dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:padding="16dp">
 
         <EditText
@@ -37,12 +37,17 @@
 
         <TextView
             android:id="@+id/answer_key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/answer"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="-35dp"
-            android:textColor="@color/orange" />
+            android:layout_width="185dp"
+            android:layout_height="49dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginEnd="222dp"
+            android:text="Answer_Key"
+            android:textColor="@color/orange"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

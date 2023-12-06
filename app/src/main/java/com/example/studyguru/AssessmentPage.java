@@ -67,6 +67,7 @@ public class AssessmentPage extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Check if the user's answers match the correct answers
+                    adapter.updateTextColor(Color.WHITE);
                     for (int i = 0; i < dataset.size(); i++) {
                             String userAnswer = String.valueOf(dataset.get(i).getAnswer());
 
