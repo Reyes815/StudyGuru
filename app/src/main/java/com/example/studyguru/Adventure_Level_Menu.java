@@ -19,19 +19,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Level_Menu extends AppCompatActivity {
+public class Adventure_Level_Menu extends AppCompatActivity {
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    Map<String, Boolean> status = new HashMap<>();
-    DocumentReference adventure_check2 = firestore.collection("Adventure Level").document("level 2");
-    DocumentReference adventure_check3 = firestore.collection("Adventure Level").document("level 3");
-    DocumentReference adventure_check4 = firestore.collection("Adventure Level").document("level 4");
-    DocumentReference adventure_check5 = firestore.collection("Adventure Level").document("level 5");
+    DocumentReference adventure_check2 = firestore.collection("Adventure Level ").document("level 2");
+    DocumentReference adventure_check3 = firestore.collection("Adventure Level ").document("level 3");
+    DocumentReference adventure_check4 = firestore.collection("Adventure Level ").document("level 4");
+    DocumentReference adventure_check5 = firestore.collection("Adventure Level ").document("level 5");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.level_menu);
-
-        status.put("Unlocked", true);
 
         Button level_1 = findViewById(R.id.adventure_level_1_btn);
         Button level_2 = findViewById(R.id.adventure_level_2_btn);
@@ -91,8 +88,8 @@ public class Level_Menu extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("Unlocked");
+                        if (unlocked.equals("true")) {
                             level_2.setEnabled(true);
                         }
                     } else {
@@ -111,8 +108,8 @@ public class Level_Menu extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("Unlocked");
+                        if (unlocked.equals("true")) {
                             level_3.setEnabled(true);
                         }
                     } else {
@@ -131,8 +128,8 @@ public class Level_Menu extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("Unlocked");
+                        if (unlocked.equals("true")) {
                             level_4.setEnabled(true);
                         }
                     } else {
@@ -151,8 +148,8 @@ public class Level_Menu extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("Unlocked");
+                        if (unlocked.equals("true")) {
                             level_5.setEnabled(true);
                         }
                     } else {

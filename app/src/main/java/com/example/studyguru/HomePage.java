@@ -122,7 +122,7 @@ public class HomePage extends AppCompatActivity {
         adventure_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AdventureLevel1.class);
+                Intent intent = new Intent(getApplicationContext(), Adventure_Level_Menu.class);
                 startActivity(intent);
             }
         });

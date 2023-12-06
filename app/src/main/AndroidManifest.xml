@@ -120,7 +120,7 @@
             android:name=".AdventureLevel5"
             android:exported="false" />
         <activity
-            android:name=".Level_Menu"
+            android:name=".Adventure_Level_Menu"
             android:exported="true">
 
             <!--             <intent-filter>-->
