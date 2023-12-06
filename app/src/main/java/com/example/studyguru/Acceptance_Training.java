@@ -327,6 +327,9 @@ public class Acceptance_Training extends AppCompatActivity {
                                         charIndex = 0;
                                         dialogue_counter++;
                                         displayTextWithAnimation(dialoguesList.get(dialogue_counter));
+                                        state = 0;
+                                        move_ctr = 0;
+                                        move_limit = 0;
                                     }
                                 },2000);
                             }
