@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.studyguru.training;
-
 public class Level_Menu extends AppCompatActivity {
 
     @Override
@@ -21,7 +19,7 @@ public class Level_Menu extends AppCompatActivity {
         training_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent training = new Intent(getApplicationContext(), com.example.studyguru.training.class);
+                Intent training = new Intent(getApplicationContext(), primaryTraining.class);
                 startActivity(training);
             }
         });

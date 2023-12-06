@@ -1,5 +1,6 @@
 package com.example.studyguru;
 
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -98,7 +99,6 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         public EditText getAnswer() {
             return answer;
         }
-
 
     }
 

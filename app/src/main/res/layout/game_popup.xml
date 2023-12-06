@@ -36,7 +36,7 @@
             android:background="@drawable/rounded_corner"
             android:fontFamily="@font/abril_fatface"
             android:gravity="center"
-            android:text="You have passed the level warrior! I commend you"
+            android:text="You have passed the assessment warrior! I commend you"
             android:textColor="#2D4059" />
 
         <ImageView

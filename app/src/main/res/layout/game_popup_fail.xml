@@ -36,7 +36,7 @@
             android:background="@drawable/rounded_corner"
             android:fontFamily="@font/abril_fatface"
             android:gravity="center"
-            android:text="You disappoint me warrior, pick yourself up and try again"
+            android:text="You disappoint me warrior, do better next time!"
             android:textColor="#2D4059" />
 
         <ImageView

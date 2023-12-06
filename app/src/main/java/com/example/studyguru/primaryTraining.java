@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.studyguru.training3;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class training extends AppCompatActivity {
+public class primaryTraining extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     private boolean enableClick = false;
@@ -141,6 +140,7 @@ public class training extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
                                         if(!task.getResult().isEmpty()) {
+                                            enableClick = true;
                                             for (QueryDocumentSnapshot document : task.getResult()) {
                                                 a5 = document.getString("answer_key5");
                                                 a4 = document.getString("answer_key4");
@@ -164,7 +164,8 @@ public class training extends AppCompatActivity {
                                                 }
                                             }
                                         }else{
-                                            Intent intent = new Intent(training.this, training3.class);
+                                            Intent intent = new Intent(primaryTraining.this, AssessmentPage.class);
+                                            intent.putExtra("type", "primaryTraining");
                                             startActivity(intent);
                                         }
                                     } else {

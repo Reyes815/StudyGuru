@@ -87,7 +87,7 @@
         </activity>
 
         <activity
-            android:name=".training3"
+            android:name=".Languages"
             android:exported="true" >
 
 <!--            <intent-filter>-->
@@ -139,8 +139,8 @@
             <!--             </intent-filter>-->
         </activity>
         <activity
-            android:name=".training"
-            android:exported="false">
+            android:name=".primaryTraining"
+            android:exported="true">
         </activity>
 
         <meta-data

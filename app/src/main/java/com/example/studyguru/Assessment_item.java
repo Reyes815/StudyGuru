@@ -1,5 +1,6 @@
 package com.example.studyguru;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,4 +33,5 @@ public class Assessment_item extends AppCompatActivity {
     public EditText getAnswer() {
         return answer;
     }
+
 }

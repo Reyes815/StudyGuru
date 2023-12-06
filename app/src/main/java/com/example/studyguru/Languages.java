@@ -3,11 +3,16 @@ package com.example.studyguru;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,13 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class training3 extends AppCompatActivity {
-
-
-
+public class Languages extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private boolean enableClick = false;
     private String answer = "";
@@ -125,6 +124,7 @@ public class training3 extends AppCompatActivity {
             public void onClick(View view) {
 
                 charIndex = 0;
+
                 if(monsterB){
                     goal_node2.setBackgroundResource(R.drawable.skeleton_death);
                     AnimationDrawable skeletonDeath2 = (AnimationDrawable) goal_node2.getBackground();
@@ -160,6 +160,7 @@ public class training3 extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     if (task.isSuccessful()) {
+                                        if(!task.getResult().isEmpty()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             a2 = document.getString("answer_key2");
                                             a = document.getString("answer_key");
@@ -169,8 +170,14 @@ public class training3 extends AppCompatActivity {
                                             Log.d("training", "Next - Dialogue: " + b);
 
                                             String dialogue = document.getString("dialogue");
-                                            displayTextWithAnimation(dialogue);
 
+                                            if(!answer.isEmpty() || !answer.equals("")) {
+                                                displayTextWithAnimation(dialogue + "\nThe string that you created is " + answer);
+                                                answer = "";
+                                            }
+                                            else{
+                                                displayTextWithAnimation(dialogue);
+                                            }
                                             lastDocumentKey = document.getId();
                                             if(!a.isEmpty()){
                                                 enableClick = true;
@@ -178,8 +185,15 @@ public class training3 extends AppCompatActivity {
                                                 enableClick = false;
                                             }
                                         }
-                                    } else {
+                                    }else{
+                                            Intent intent = new Intent(Languages.this, AssessmentPage.class);
+                                            intent.putExtra("type", "languages");
+                                            startActivity(intent);
+                                        }
+                                    }
+                                    else {
                                         Log.d("training", "Failed: " + task.getException());
+
                                     }
                                 }
                             });
@@ -328,6 +342,8 @@ public class training3 extends AppCompatActivity {
                 }
             }, 1000);
             answer = "";
+            AisDead = false;
+            monsterA = false;
             path_A_txtView.setBackgroundResource(R.drawable.rounded_corner);
             path_B_txtView.setBackgroundResource(R.drawable.rounded_corner);
             path2_A_txtView.setBackgroundResource(R.drawable.rounded_corner);

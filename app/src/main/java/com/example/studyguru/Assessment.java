@@ -1,5 +1,7 @@
 package com.example.studyguru;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 
 public class Assessment {
