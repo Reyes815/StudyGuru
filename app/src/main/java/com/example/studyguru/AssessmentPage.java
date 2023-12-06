@@ -155,6 +155,8 @@ public class AssessmentPage extends AppCompatActivity {
         score.setText(text);
 
         prev.setVisibility(View.GONE);
+        retry.setVisibility(View.GONE);
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +167,7 @@ public class AssessmentPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home_popup = new Intent(getApplicationContext(), Level_Menu.class);
+                Intent home_popup = new Intent(getApplicationContext(), HomePage.class);
                 startActivity(home_popup);
             }
         });
@@ -191,6 +193,7 @@ public class AssessmentPage extends AppCompatActivity {
         String text = "You have scored "+ scoreUser + " and have passed the assessment. Congratulations Soldier!";
         score.setText(text);
         prev.setVisibility(View.GONE);
+        next.setVisibility(View.GONE);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +203,7 @@ public class AssessmentPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home_popup = new Intent(getApplicationContext(), Level_Menu.class);
+                Intent home_popup = new Intent(getApplicationContext(), HomePage.class);
                 startActivity(home_popup);
             }
         });
