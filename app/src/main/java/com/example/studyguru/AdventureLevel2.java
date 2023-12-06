@@ -48,10 +48,12 @@ public class AdventureLevel2 extends AppCompatActivity {
     Map<String, Object> Alive_Update = new HashMap<>();
     Map<String, Object> Hour = new HashMap<>();
     Map<String, Object> Minute = new HashMap<>();
+    Map<String, Object> status = new HashMap<>();
     DocumentReference heart_1_ref = firestore.collection("Life_System").document("Heart_1");
     DocumentReference heart_2_ref = firestore.collection("Life_System").document("Heart_2");
     DocumentReference heart_3_ref = firestore.collection("Life_System").document("Heart_3");
     DocumentReference Timer = firestore.collection("Life_System").document("Timer");
+    DocumentReference adventure_check3 = firestore.collection("Adventure Level ").document("level 3");
     String heart_1_status;
     String heart_2_status;
     String heart_3_status;
@@ -61,6 +63,7 @@ public class AdventureLevel2 extends AppCompatActivity {
         setContentView(R.layout.adventure_level2);
         myDialog = new Dialog(this);
 
+        status.put("Unlocked", "true");
         Dead_Update.put("Status", "DEAD");
         Alive_Update.put("Status", "ALIVE");
 
@@ -254,7 +257,7 @@ public class AdventureLevel2 extends AppCompatActivity {
             home.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent home_popup = new Intent(getApplicationContext(), Level_Menu.class);
+                    Intent home_popup = new Intent(getApplicationContext(), Adventure_Level_Menu.class);
                     startActivity(home_popup);
                 }
             });
@@ -401,7 +404,7 @@ public class AdventureLevel2 extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home_popup = new Intent(getApplicationContext(), Level_Menu.class);
+                Intent home_popup = new Intent(getApplicationContext(), HomePage.class);
                 startActivity(home_popup);
             }
         });
@@ -442,7 +445,7 @@ public class AdventureLevel2 extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home_popup = new Intent(getApplicationContext(), Level_Menu.class);
+                Intent home_popup = new Intent(getApplicationContext(), HomePage.class);
                 startActivity(home_popup);
             }
         });
@@ -456,6 +459,7 @@ public class AdventureLevel2 extends AppCompatActivity {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+        adventure_check3.update(status);
     }
 
     public int getHour(){
@@ -481,7 +485,7 @@ public class AdventureLevel2 extends AppCompatActivity {
                         Double hour = document.getDouble("Hour");
                         Double minute = document.getDouble("Minute");
 
-                        if (heart_1_status.equals("DEAD") && hour != null && minute != null) {
+                        if (heart_1_status != null && heart_1_status.equals("DEAD")) {
                             if (current_hour > hour || (current_hour == hour && current_minute > minute)) {
                                 Regain_life();
                             }
