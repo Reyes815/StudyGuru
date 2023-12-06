@@ -148,7 +148,7 @@ public class AssessmentPage extends AppCompatActivity {
         // Find the close button after setting the content view
         Button close = myDialog.findViewById(R.id.close_btn);
         Button home = myDialog.findViewById(R.id.home_btn);
-        Button retry = myDialog.findViewById(R.id.retry_btn);
+        Button retry = myDialog.findViewById(R.id.next_btn);
         Button prev = myDialog.findViewById(R.id.prev_btn);
         TextView score = myDialog.findViewById(R.id.textView3);
         String text = "You have scored "+ scoreUser + " and have failed the assessment. Do better next time Soldier!";
@@ -186,7 +186,7 @@ public class AssessmentPage extends AppCompatActivity {
         Button close = myDialog.findViewById(R.id.close_btn);
         Button prev = myDialog.findViewById(R.id.prev_btn);
         Button home = myDialog.findViewById(R.id.home_btn);
-        Button next = myDialog.findViewById(R.id.retry_btn);
+        Button next = myDialog.findViewById(R.id.next_btn);
         TextView score = myDialog.findViewById(R.id.textView3);
         String text = "You have scored "+ scoreUser + " and have passed the assessment. Congratulations Soldier!";
         score.setText(text);
