@@ -36,12 +36,12 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
     public void onBindViewHolder(@NonNull AssessmentHolder holder, int position) {
         Assessment current = localDataset.get(position);
         holder.question.setText(current.getQuestion());
-        holder.answer_key.setText(current.getAnswer_key());
+//        holder.answer_key.setText(current.getAnswer_key());
         // Set a unique identifier for the EditText view, e.g., using the position
         holder.answer.setTag(position);
 
         // Set text color dynamically
-        holder.answer_key.setTextColor(textColor);
+//          holder.answer_key.setTextColor(textColor);
 
         // Remove previous TextWatcher to avoid issues
         if (holder.answer.getTag(TEXT_CHANGE_LISTENER_KEY) != null) {
@@ -90,7 +90,7 @@ public class Assessment_Adapter extends RecyclerView.Adapter<Assessment_Adapter.
         public AssessmentHolder(@NonNull View itemView) {
             super(itemView);
             question = itemView.findViewById(R.id.question);
-            answer_key = itemView.findViewById(R.id.answer_key);
+            //answer_key = itemView.findViewById(R.id.answer_key);
             answer = itemView.findViewById(R.id.answer);
         }
 

@@ -17,7 +17,7 @@ public class Assessment_item extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assessment_item);
 
-        answer_key = findViewById(R.id.answer_key);
+        //answer_key = findViewById(R.id.answer_key);
         question = findViewById(R.id.question);
         answer = findViewById(R.id.answer);
     }
