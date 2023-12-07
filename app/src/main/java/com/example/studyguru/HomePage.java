@@ -44,7 +44,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.home_page);
 
         btnTutorial = findViewById(R.id.btnTutorial);
-        btnTraining = findViewById(R.id.btnTraining);
+        //btnTraining = findViewById(R.id.btnTraining);
         toolbar = findViewById(R.id.toolbar);
         btnPlaynow = findViewById(R.id.btnPlayNow);
 
@@ -114,7 +114,7 @@ public class HomePage extends AppCompatActivity {
         training_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), primaryTraining.class);
+                Intent intent = new Intent(getApplicationContext(), Training_Level_Menu.class);
                 startActivity(intent);
             }
         });

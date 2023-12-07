@@ -15,10 +15,14 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class primaryTraining extends AppCompatActivity {
 
@@ -36,6 +40,9 @@ public class primaryTraining extends AppCompatActivity {
     private String fullText = "";
     private AnimationDrawable attackedAnimation2;
     private ImageView wizard1;
+    DocumentReference adventure_check2;
+    Map<String, Object> status = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +54,8 @@ public class primaryTraining extends AppCompatActivity {
         next_button = findViewById(R.id.next_button);
         // Initialize Firebase
         this.firestore =FirebaseFirestore.getInstance();
-
+        adventure_check2 = firestore.collection("Training Levels").document("transitions");
+        status.put("unlocked", "true");
         handler = new Handler();
 
         final View goal_node2 = findViewById(R.id.flower_node_goal2); //
@@ -164,6 +172,7 @@ public class primaryTraining extends AppCompatActivity {
                                                 }
                                             }
                                         }else{
+                                            adventure_check2.update(status);
                                             Intent intent = new Intent(primaryTraining.this, AssessmentPage.class);
                                             intent.putExtra("type", "primaryTraining");
                                             startActivity(intent);

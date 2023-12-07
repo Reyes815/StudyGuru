@@ -18,12 +18,15 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Transition_Training extends AppCompatActivity {
 
@@ -52,6 +55,8 @@ public class Transition_Training extends AppCompatActivity {
     int dialogue_counter = 0;
 
     ImageView wizard;
+    DocumentReference adventure_check2;
+    Map<String, Object> status = new HashMap<>();
 
 
     @Override
@@ -60,7 +65,8 @@ public class Transition_Training extends AppCompatActivity {
         setContentView(R.layout.activity_transition_training);
 
         this.firestore = FirebaseFirestore.getInstance();
-
+        adventure_check2 = firestore.collection("Training Levels").document("acceptance");
+        status.put("unlocked", "true");
         button = findViewById(R.id.next_button);
 
         wizard = findViewById(R.id.wizard_imgview);
@@ -152,11 +158,19 @@ public class Transition_Training extends AppCompatActivity {
             public void onClick(View view) {
                 charIndex = 0;
                 dialogue_counter++;
+                if(dialogue_counter == 5){
+                    button.setEnabled(true);
+                }
 
                 if(dialogue_counter == 6){
+                    adventure_check2.update(status);
                     Intent intent = new Intent(Transition_Training.this, AssessmentPage.class);
                     intent.putExtra("type", "Assessment_for_Transition_Training");
                     startActivity(intent);
+                }
+
+                if(dialogue_counter == 1){
+                    button.setEnabled(false);
                 }
 
                 if(dialogue_counter != 5){

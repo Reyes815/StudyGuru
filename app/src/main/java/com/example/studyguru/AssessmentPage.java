@@ -67,7 +67,7 @@ public class AssessmentPage extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // Check if the user's answers match the correct answers
-                    adapter.updateTextColor(Color.WHITE);
+//                    adapter.updateTextColor(Color.WHITE);
                     for (int i = 0; i < dataset.size(); i++) {
                             String userAnswer = String.valueOf(dataset.get(i).getAnswer());
 
@@ -168,7 +168,7 @@ public class AssessmentPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home_popup = new Intent(getApplicationContext(), HomePage.class);
+                Intent home_popup = new Intent(getApplicationContext(), Training_Level_Menu.class);
                 startActivity(home_popup);
             }
         });
@@ -204,7 +204,7 @@ public class AssessmentPage extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home_popup = new Intent(getApplicationContext(), HomePage.class);
+                Intent home_popup = new Intent(getApplicationContext(), Training_Level_Menu.class);
                 startActivity(home_popup);
             }
         });

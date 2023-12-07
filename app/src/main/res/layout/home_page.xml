@@ -106,25 +106,6 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="76dp">
-
-                        <Button
-                            android:id="@+id/btnTraining"
-                            android:layout_width="230dp"
-                            android:layout_height="55dp"
-                            android:background="@drawable/rounded_corner"
-                            android:fontFamily="@font/rocknroll_one"
-                            android:text="Training"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
                         android:layout_height="99dp">
 
                         <Button

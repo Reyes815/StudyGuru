@@ -15,39 +15,44 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
 
-
-public class Levels_Training extends AppCompatActivity {
+public class Training_Level_Menu extends AppCompatActivity {
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    Map<String, Boolean> status = new HashMap<>();
-    DocumentReference adventure_check2 = firestore.collection("Adventure Level").document("level 2");
-    DocumentReference adventure_check3 = firestore.collection("Adventure Level").document("level 3");
-    DocumentReference adventure_check4 = firestore.collection("Adventure Level").document("level 4");
-    DocumentReference adventure_check5 = firestore.collection("Adventure Level").document("level 5");
+    DocumentReference adventure_check2 = firestore.collection("Training Levels").document("transitions");
+    DocumentReference adventure_check3 = firestore.collection("Training Levels").document("acceptance");
+    DocumentReference adventure_check4 = firestore.collection("Training Levels").document("formal representation");
+    DocumentReference adventure_check5 = firestore.collection("Training Levels").document("languages");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.level_menu);
-
-        status.put("Unlocked", true);
+        setContentView(R.layout.levels_training);
 
         Button level_1 = findViewById(R.id.adventure_level_1_btn);
         Button level_2 = findViewById(R.id.adventure_level_2_btn);
         Button level_3 = findViewById(R.id.adventure_level_3_btn);
         Button level_4 = findViewById(R.id.adventure_level_4_btn);
         Button level_5 = findViewById(R.id.adventure_level_5_btn);
+        Button home = findViewById(R.id.home_btn);
 
         level_2.setEnabled(false);
         level_3.setEnabled(false);
         level_4.setEnabled(false);
         level_5.setEnabled(false);
 
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(getApplicationContext(), HomePage.class);
+                startActivity(home);
+            }
+        });
+
+
         level_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent training = new Intent(getApplicationContext(), AdventureLevel1.class);
+                Intent training = new Intent(getApplicationContext(), primaryTraining.class);
                 startActivity(training);
             }
         });
@@ -55,7 +60,7 @@ public class Levels_Training extends AppCompatActivity {
         level_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent training = new Intent(getApplicationContext(), AdventureLevel2.class);
+                Intent training = new Intent(getApplicationContext(), Transition_Training.class);
                 startActivity(training);
             }
         });
@@ -63,7 +68,7 @@ public class Levels_Training extends AppCompatActivity {
         level_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent training = new Intent(getApplicationContext(), AdventureLevel3.class);
+                Intent training = new Intent(getApplicationContext(), Acceptance_Training.class);
                 startActivity(training);
             }
         });
@@ -71,7 +76,7 @@ public class Levels_Training extends AppCompatActivity {
         level_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent training = new Intent(getApplicationContext(), AdventureLevel4.class);
+                Intent training = new Intent(getApplicationContext(), Formal_Representation_Training.class);
                 startActivity(training);
             }
         });
@@ -79,7 +84,7 @@ public class Levels_Training extends AppCompatActivity {
         level_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent training = new Intent(getApplicationContext(), AdventureLevel5.class);
+                Intent training = new Intent(getApplicationContext(), Languages.class);
                 startActivity(training);
             }
         });
@@ -91,8 +96,8 @@ public class Levels_Training extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("unlocked");
+                        if (unlocked.equals("true")) {
                             level_2.setEnabled(true);
                         }
                     } else {
@@ -111,8 +116,8 @@ public class Levels_Training extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("unlocked");
+                        if (unlocked.equals("true")) {
                             level_3.setEnabled(true);
                         }
                     } else {
@@ -131,9 +136,10 @@ public class Levels_Training extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("unlocked");
+                        if (unlocked.equals("true")) {
                             level_4.setEnabled(true);
+
                         }
                     } else {
                         Log.d("Document does not exist", "No such document");
@@ -151,9 +157,10 @@ public class Levels_Training extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Assuming 'status' is the field in your document
-                        boolean unlocked = document.getBoolean("Unlocked");
-                        if (unlocked) {
+                        String unlocked = document.getString("unlocked");
+                        if (unlocked.equals("true")) {
                             level_5.setEnabled(true);
+
                         }
                     } else {
                         Log.d("Document does not exist", "No such document");
