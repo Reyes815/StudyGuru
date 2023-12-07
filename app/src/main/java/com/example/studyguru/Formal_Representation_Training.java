@@ -20,12 +20,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Formal_Representation_Training extends AppCompatActivity {
 
@@ -44,6 +47,9 @@ public class Formal_Representation_Training extends AppCompatActivity {
     TextView wizard_dialogue;
 
     int dialogue_counter = 0;
+    DocumentReference adventure_check2;
+    Map<String, Object> status = new HashMap<>();
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -52,7 +58,9 @@ public class Formal_Representation_Training extends AppCompatActivity {
         setContentView(R.layout.activity_training5);
 
         this.firestore = FirebaseFirestore.getInstance();
-
+        adventure_check2 = firestore.collection("Training Levels").document("languages");
+        status.put("unlocked", "true");
+        adventure_check2.update(status);
         wizard_dialogue = findViewById(R.id.txtWizarddialogue);
 
         button = findViewById(R.id.next_button);

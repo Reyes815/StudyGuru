@@ -35,11 +35,21 @@ public class Adventure_Level_Menu extends AppCompatActivity {
         Button level_3 = findViewById(R.id.adventure_level_3_btn);
         Button level_4 = findViewById(R.id.adventure_level_4_btn);
         Button level_5 = findViewById(R.id.adventure_level_5_btn);
+        Button home = findViewById(R.id.home_btn);
 
         level_2.setEnabled(false);
         level_3.setEnabled(false);
         level_4.setEnabled(false);
         level_5.setEnabled(false);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(getApplicationContext(), HomePage.class);
+                startActivity(home);
+            }
+        });
+
 
         level_1.setOnClickListener(new View.OnClickListener() {
             @Override

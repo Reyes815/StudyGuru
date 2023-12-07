@@ -25,6 +25,23 @@
         app:layout_constraintTop_toBottomOf="@+id/adventure_level_4_btn" />
 
     <Button
+        android:id="@+id/home_btn"
+        android:layout_width="126dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="26dp"
+        android:background="@drawable/button_background_color"
+        android:foregroundGravity="center"
+        android:text="Home"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/adventure_level_5_btn" />
+
+    <Button
         android:id="@+id/adventure_level_3_btn"
         android:layout_width="224dp"
         android:layout_height="50dp"

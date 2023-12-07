@@ -16,12 +16,15 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Acceptance_Training extends AppCompatActivity {
@@ -77,6 +80,8 @@ public class Acceptance_Training extends AppCompatActivity {
     int random_wrong;
 
     String wrong_choice;
+    Map<String, Object> status = new HashMap<>();
+    DocumentReference adventure_check2;
 
 
 
@@ -86,7 +91,8 @@ public class Acceptance_Training extends AppCompatActivity {
         setContentView(R.layout.activity_acceptance_training);
 
         this.firestore = FirebaseFirestore.getInstance();
-
+        adventure_check2 = firestore.collection("Training Levels").document("formal representation");
+        status.put("unlocked", "true");
         button = findViewById(R.id.next_button);
 
         wizard_dialogue = findViewById(R.id.txtWizarddialogue);
@@ -256,12 +262,14 @@ public class Acceptance_Training extends AppCompatActivity {
                 try {
                     displayTextWithAnimation(dialoguesList.get(dialogue_counter));
                 }catch (Exception e){
+                        adventure_check2.update(status);
                         Intent intent = new Intent(Acceptance_Training.this, AssessmentPage.class);
                         intent.putExtra("type", "Assessment_for_Acceptance_Training");
                         startActivity(intent);
                 }
 
                 if(dialogue_counter == 1){
+//                    button.setEnabled(false);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -270,7 +278,10 @@ public class Acceptance_Training extends AppCompatActivity {
                     }, 9000);
                 }
 
+
+
                 if(dialogue_counter == 3){
+//                    button.setEnabled(true);
                     Random random = new Random();
                     int correct_ans = random.nextInt(correct_answersList.size());
                     answer = correct_answersList.get(correct_ans);
