@@ -259,17 +259,25 @@ public class Acceptance_Training extends AppCompatActivity {
             public void onClick(View view) {
                 charIndex = 0;
                 dialogue_counter++;
+
+                if(dialogue_counter == dialoguesList.size() - 1){
+                    adventure_check2.update(status);
+                    Intent intent = new Intent(Acceptance_Training.this, AssessmentPage.class);
+                    intent.putExtra("type", "Assessment_for_Acceptance_Training");
+                    startActivity(intent);
+                }
+
                 try {
                     displayTextWithAnimation(dialoguesList.get(dialogue_counter));
                 }catch (Exception e){
-                        adventure_check2.update(status);
-                        Intent intent = new Intent(Acceptance_Training.this, AssessmentPage.class);
-                        intent.putExtra("type", "Assessment_for_Acceptance_Training");
-                        startActivity(intent);
+//                        adventure_check2.update(status);
+//                        Intent intent = new Intent(Acceptance_Training.this, AssessmentPage.class);
+//                        intent.putExtra("type", "Assessment_for_Acceptance_Training");
+//                        startActivity(intent);
                 }
 
                 if(dialogue_counter == 1){
-//                    button.setEnabled(false);
+                    button.setEnabled(false);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -281,7 +289,7 @@ public class Acceptance_Training extends AppCompatActivity {
 
 
                 if(dialogue_counter == 3){
-//                    button.setEnabled(true);
+                    button.setEnabled(false);
                     Random random = new Random();
                     int correct_ans = random.nextInt(correct_answersList.size());
                     answer = correct_answersList.get(correct_ans);
@@ -320,6 +328,7 @@ public class Acceptance_Training extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        button.setEnabled(true);
                                         path_forA2.setVisibility(View.GONE);
                                         path_forB2.setVisibility(View.GONE);
                                         stone_gate_forA2.setVisibility(View.GONE);
@@ -350,6 +359,7 @@ public class Acceptance_Training extends AppCompatActivity {
                                         state = 0;
                                         move_ctr = 0;
                                         move_limit = 0;
+                                        button.setEnabled(true);
                                     }
                                 },2000);
                             }
@@ -456,6 +466,7 @@ public class Acceptance_Training extends AppCompatActivity {
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
+                                        button.setEnabled(true);
                                         path_forA2.setVisibility(View.GONE);
                                         path_forB2.setVisibility(View.GONE);
                                         stone_gate_forA2.setVisibility(View.GONE);
@@ -485,6 +496,7 @@ public class Acceptance_Training extends AppCompatActivity {
                                         state = 0;
                                         move_ctr = 0;
                                         move_limit = 0;
+                                        button.setEnabled(true);
 
                                         Log.d("acceptance", String.valueOf(dialogue_counter));
                                     }
