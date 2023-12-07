@@ -23,12 +23,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Formal_Representation_Training extends AppCompatActivity {
 
@@ -48,9 +51,6 @@ public class Formal_Representation_Training extends AppCompatActivity {
     private View overlayView;
 
     List<String> dialoguesList = new ArrayList<>();
-    ;
-
-    private TextView textView;
     TextView wizard_dialogue;
 
     int dialogue_counter = 0;
@@ -63,6 +63,8 @@ public class Formal_Representation_Training extends AppCompatActivity {
     private String gFinalState;
     private boolean noteWasOpened = false;
     Dialog dialog;
+    DocumentReference adventure_check2;
+    Map<String, Object> status = new HashMap<>();
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,8 @@ public class Formal_Representation_Training extends AppCompatActivity {
         setContentView(R.layout.activity_training5);
         dialog = new Dialog(this);
         this.firestore = FirebaseFirestore.getInstance();
-
+        adventure_check2 = firestore.collection("Training Levels").document("languages");
+        status.put("unlocked", "true");
         // Get references for the Button
         button = findViewById(R.id.next_button);
 
@@ -94,6 +97,7 @@ public class Formal_Representation_Training extends AppCompatActivity {
         foldedMap.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
 
+        // Next button functionality
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +117,7 @@ public class Formal_Representation_Training extends AppCompatActivity {
                                         if (gStates.matches(states) && gAlphabet.matches(alphabet) && gFinalState.matches(finalState) && gInitialState.matches(initialState)) {
                                             Toast.makeText(Formal_Representation_Training.this, "Success", Toast.LENGTH_SHORT).show();
                                             showGamePopupSuccess();
+                                            adventure_check2.update(status);
                                         }
                                     }
                                 }
@@ -230,8 +235,6 @@ public class Formal_Representation_Training extends AppCompatActivity {
         }
         dialog.show();
     }
-
-
 
     private void showGamePopupSuccess() {
         dialog.setContentView(R.layout.game_popup);
