@@ -99,6 +99,7 @@ public class Training_Level_Menu extends AppCompatActivity {
                         String unlocked = document.getString("unlocked");
                         if (unlocked.equals("true")) {
                             level_2.setEnabled(true);
+                            level_2.setBackgroundResource(R.drawable.button_background_color);
                         }
                     } else {
                         Log.d("Document does not exist", "No such document");
@@ -119,6 +120,7 @@ public class Training_Level_Menu extends AppCompatActivity {
                         String unlocked = document.getString("unlocked");
                         if (unlocked.equals("true")) {
                             level_3.setEnabled(true);
+                            level_3.setBackgroundResource(R.drawable.button_background_color);
                         }
                     } else {
                         Log.d("Document does not exist", "No such document");
@@ -139,7 +141,7 @@ public class Training_Level_Menu extends AppCompatActivity {
                         String unlocked = document.getString("unlocked");
                         if (unlocked.equals("true")) {
                             level_4.setEnabled(true);
-
+                            level_4.setBackgroundResource(R.drawable.button_background_color);
                         }
                     } else {
                         Log.d("Document does not exist", "No such document");
@@ -160,7 +162,7 @@ public class Training_Level_Menu extends AppCompatActivity {
                         String unlocked = document.getString("unlocked");
                         if (unlocked.equals("true")) {
                             level_5.setEnabled(true);
-
+                            level_5.setBackgroundResource(R.drawable.button_background_color);
                         }
                     } else {
                         Log.d("Document does not exist", "No such document");
