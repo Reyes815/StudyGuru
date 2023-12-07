@@ -69,49 +69,6 @@
         app:strokeColor="#3F51B5"
         app:strokeWidth="0dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/next_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/next"
-        app:backgroundTint="@color/yellow"
-        app:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/txtWizarddialogue"
-        android:layout_width="234dp"
-        android:layout_height="62dp"
-        android:layout_gravity="center"
-        android:background="@drawable/wizard_dialogue_textview"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.79"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81" />
-
-    <ImageView
-        android:id="@+id/formalDefNote"
-        android:layout_width="71dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="75dp"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/training2_txtView"
-        app:srcCompat="@drawable/map_scroll" />
-
-    <ImageView
-        android:id="@+id/foldedMap"
-        android:layout_width="71dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-        app:layout_constraintTop_toBottomOf="@+id/formalDefNote"
-        app:srcCompat="@drawable/folded_map" />
-
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="31dp"
@@ -199,5 +156,87 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintStart_toEndOf="@+id/linearLayout2" />
+
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="71dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="55dp"
+        app:layout_constraintEnd_toStartOf="@+id/formalDefNote"
+        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:srcCompat="@drawable/arrow" />
+
+    <ImageView
+        android:id="@+id/arrow2"
+        android:layout_width="71dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/foldedMap"
+        app:layout_constraintTop_toBottomOf="@+id/arrow"
+        app:srcCompat="@drawable/arrow" />
+
+    <TextView
+        android:id="@+id/txtWizarddialogue"
+        android:layout_width="234dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/wizard_dialogue_textview"
+        android:text="TextView"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.79"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.81" />
+
+    <View
+        android:id="@+id/overlayView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/next"
+        app:backgroundTint="@color/yellow"
+        app:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/formalDefNote"
+        android:layout_width="71dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/training2_txtView"
+        app:srcCompat="@drawable/map_scroll" />
+
+    <ImageView
+        android:id="@+id/foldedMap"
+        android:layout_width="71dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/formalDefNote"
+        app:srcCompat="@drawable/folded_map" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="336dp"
+        android:layout_marginEnd="116dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
